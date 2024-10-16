@@ -1,0 +1,20 @@
+.skeleton {
+  &__pizza {
+    height: 240px;
+    margin-bottom: 22px;
+  }
+  &__title {
+    height: 20px;
+    margin-bottom: 20px;
+  }
+  &__selector {
+    height: 87px;
+  }
+  &__price {
+    width: 90px;
+    height: 27px;
+  }
+  &__add {
+    height: 46px;
+  }
+}
