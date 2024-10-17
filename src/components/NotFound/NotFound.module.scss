@@ -1,0 +1,15 @@
+.root {
+  height: calc(100vh - 340px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  img {
+    width: 220px;
+    height: 220px;
+  }
+}
+
+.description {
+  font-size: 18px;
+}

@@ -310,3 +310,29 @@ body {
     }
   }
 }
+
+#error-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: calc(100vw - 100px);
+  height: calc(100vh - 100px);
+  background-color: #fff;
+  margin: 50px auto;
+  border-radius: 10px;
+  max-width: 1400px;
+
+  .error-back {
+    font-size: 20px;
+    border: #777777 2px solid;
+    padding: 5px 15px;
+    border-radius: 10px;
+    transition: 0.2s linear background;
+
+    &:hover {
+      background-color: #ffdf8c;
+      border: #ffdf8c 2px solid;
+    }
+  }
+}
