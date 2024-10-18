@@ -1,20 +1,77 @@
 .skeleton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   &__pizza {
-    height: 240px;
-    margin-bottom: 22px;
+    width: 100%;
+    height: 100%;
+
+    &-container {
+      display: block;
+      width: 240px;
+      height: 240px;
+      margin-bottom: 26px;
+
+      @media (max-width: 568px) {
+        width: 215px;
+        height: 215px;
+        margin-bottom: 24px;
+      }
+      @media (max-width: 468px) {
+        width: 182px;
+        height: 182px;
+      }
+    }
   }
+
   &__title {
-    height: 20px;
-    margin-bottom: 20px;
+    &-container {
+      display: block;
+      width: 100%;
+      height: 24px;
+      margin-bottom: 21px;
+
+      @media (max-width: 568px) {
+        margin-bottom: 17px;
+      }
+    }
   }
   &__selector {
-    height: 87px;
+    height: 100%;
+    &-container {
+      display: block;
+      width: 100%;
+      height: 87px;
+    }
+  }
+  &__bottom {
+    width: 100%;
   }
   &__price {
-    width: 90px;
-    height: 27px;
+    width: 100%;
+    height: 100%;
+    &-container {
+      display: block;
+      width: 90px;
+      height: 27px;
+
+      @media (max-width: 568px) {
+        width: 66px;
+      }
+    }
   }
   &__add {
-    height: 46px;
+    width: 100%;
+    height: 100%;
+    &-container {
+      display: block;
+      width: 155px;
+      height: 46px;
+
+      @media (max-width: 568px) {
+        width: 118px;
+        height: 32px;
+      }
+    }
   }
 }
