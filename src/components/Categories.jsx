@@ -2,11 +2,21 @@ import { useState } from 'react';
 
 export default function Categories() {
   const [activeCategory, setActiveCategory] = useState(0);
+  const [isListOpen, setIsListOpen] = useState(false);
 
   const categories = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые'];
 
+  const handleClickBurger = () => {
+    const userView = window.innerWidth <= 568;
+    if (userView) {
+      setIsListOpen(!isListOpen);
+    }
+  };
+
   return (
-    <div className="categories">
+    <div
+      className={isListOpen ? 'categories categories_active' : 'categories'}
+      onClick={handleClickBurger}>
       <ul>
         {categories.map((category, categoryID) => (
           <li

@@ -44,11 +44,50 @@
     }
     @media (max-width: 568px) {
       font-size: 13px;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(1, 1fr);
       grid-gap: 10px 10px;
     }
-    @media (max-width: 425px) {
-      grid-template-columns: repeat(1, 1fr);
+  }
+
+  @media (max-width: 568px) {
+    position: relative;
+    width: 100%;
+    padding: 5px 10px;
+    background-color: #fe5f1e;
+    border-radius: 10px;
+    margin-bottom: 10px;
+
+    &:before {
+      content: 'Категории';
+      color: #f9f9f9;
+    }
+    ul {
+      position: absolute;
+      top: 35px;
+      left: 0;
+      max-height: 0;
+      width: 100%;
+      z-index: 10;
+      background-color: #fe5f1e;
+      transition: 0.3s all ease-in-out;
+      border-radius: 10px;
+      overflow: hidden;
+      li {
+        margin-left: 10px;
+        margin-right: 10px;
+
+        &:first-child {
+          margin-top: 10px;
+        }
+        &:last-child {
+          margin-bottom: 10px;
+        }
+      }
+    }
+    &_active {
+      ul {
+        max-height: 1000px;
+      }
     }
   }
 }
