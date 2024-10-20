@@ -9,13 +9,29 @@ export default function Home() {
   const [pizzasData, setPizzasData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    getPizzas();
-  }, []);
+  const [activeCategory, setActiveCategory] = useState(0);
+  const [activeSort, setActiveSort] = useState({
+    name: 'популярности',
+    sort: 'rating',
+    increase: true,
+  });
 
-  const getPizzas = async () => {
+  useEffect(() => {
+    let urlBySort =
+      activeCategory === 0
+        ? `https://91819ac0547a360f.mokky.dev/items?sortBy=${activeSort.increase ? '' : '-'}${
+            activeSort.sort
+          }`
+        : `https://91819ac0547a360f.mokky.dev/items?sortBy=${activeSort.increase ? '' : '-'}${
+            activeSort.sort
+          }&category=${activeCategory}`;
+    getPizzas(urlBySort);
+  }, [activeCategory, activeSort]);
+
+  const getPizzas = async (url = 'https://91819ac0547a360f.mokky.dev/items') => {
     try {
-      const request = await fetch('https://91819ac0547a360f.mokky.dev/items');
+      setIsLoading(true);
+      const request = await fetch(url);
       const data = await request.json();
       setPizzasData(data);
       setIsLoading(false);
@@ -35,8 +51,8 @@ export default function Home() {
   return (
     <>
       <div className="content__top">
-        <Categories />
-        <Sort />
+        <Categories activeCategory={activeCategory} setActiveCategory={setActiveCategory} />
+        <Sort activeSort={activeSort} setActiveSort={setActiveSort} />
       </div>
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">{renderPizzaBlock()}</div>

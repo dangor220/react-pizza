@@ -1,7 +1,6 @@
 import { useState } from 'react';
 
-export default function Categories() {
-  const [activeCategory, setActiveCategory] = useState(0);
+export default function Categories({ activeCategory, setActiveCategory }) {
   const [isListOpen, setIsListOpen] = useState(false);
 
   const categories = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые'];
