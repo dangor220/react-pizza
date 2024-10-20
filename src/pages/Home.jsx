@@ -15,18 +15,19 @@ export default function Home() {
     sort: 'rating',
     increase: true,
   });
+  const [ascendSort, setAscendSort] = useState(true);
 
   useEffect(() => {
     let urlBySort =
       activeCategory === 0
-        ? `https://91819ac0547a360f.mokky.dev/items?sortBy=${activeSort.increase ? '' : '-'}${
+        ? `https://91819ac0547a360f.mokky.dev/items?sortBy=${ascendSort ? '' : '-'}${
             activeSort.sort
           }`
-        : `https://91819ac0547a360f.mokky.dev/items?sortBy=${activeSort.increase ? '' : '-'}${
+        : `https://91819ac0547a360f.mokky.dev/items?sortBy=${ascendSort ? '' : '-'}${
             activeSort.sort
           }&category=${activeCategory}`;
     getPizzas(urlBySort);
-  }, [activeCategory, activeSort]);
+  }, [activeCategory, activeSort, ascendSort]);
 
   const getPizzas = async (url = 'https://91819ac0547a360f.mokky.dev/items') => {
     try {
@@ -52,7 +53,12 @@ export default function Home() {
     <>
       <div className="content__top">
         <Categories activeCategory={activeCategory} setActiveCategory={setActiveCategory} />
-        <Sort activeSort={activeSort} setActiveSort={setActiveSort} />
+        <Sort
+          activeSort={activeSort}
+          setActiveSort={setActiveSort}
+          ascendSort={ascendSort}
+          setAscendSort={setAscendSort}
+        />
       </div>
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">{renderPizzaBlock()}</div>

@@ -1,12 +1,13 @@
 import { useState } from 'react';
 
-export default function Sort({ activeSort, setActiveSort }) {
+export default function Sort({ activeSort, setActiveSort, ascendSort, setAscendSort }) {
   const [popupIsOpen, setPopupIsOpen] = useState(false);
-  const [sortBy, setSortBy] = useState([
-    { name: 'популярности', sort: 'rating', increase: true },
-    { name: 'цене', sort: 'price', increase: true },
-    { name: 'алфавиту', sort: 'title', increase: true },
-  ]);
+
+  const sortBy = [
+    { name: 'популярности', sort: 'rating' },
+    { name: 'цене', sort: 'price' },
+    { name: 'алфавиту', sort: 'title' },
+  ];
 
   const onClickSortType = (type) => {
     setActiveSort(type);
@@ -14,22 +15,14 @@ export default function Sort({ activeSort, setActiveSort }) {
   };
 
   const handleTypeSort = () => {
-    setActiveSort({ ...activeSort, increase: !activeSort.increase });
-    setSortBy((prev) =>
-      prev.map((item) => {
-        if (item.sort === activeSort.sort) {
-          return { ...item, increase: !item.increase };
-        }
-        return item;
-      }),
-    );
+    setAscendSort(!ascendSort);
   };
 
   return (
     <div className="sort">
       <div className="sort__label">
         <div className="sort__type" onClick={handleTypeSort}>
-          {activeSort.increase ? (
+          {ascendSort ? (
             <svg
               width="10"
               height="6"
