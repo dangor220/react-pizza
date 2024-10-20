@@ -14,12 +14,11 @@ export default function Sort({ activeSort, setActiveSort }) {
   };
 
   const handleTypeSort = () => {
+    setActiveSort({ ...activeSort, increase: !activeSort.increase });
     setSortBy((prev) =>
       prev.map((item) => {
         if (item.sort === activeSort.sort) {
-          const updateItem = { ...item, increase: !item.increase };
-          setActiveSort(updateItem);
-          return updateItem;
+          return { ...item, increase: !item.increase };
         }
         return item;
       }),
@@ -63,7 +62,6 @@ export default function Sort({ activeSort, setActiveSort }) {
         <div className="sort__popup">
           <ul>
             {sortBy.map((type, typeID) => {
-              sortBy[typeID].increase = !sortBy[typeID].increase;
               return (
                 <li
                   className={activeSort.name === type.name ? 'active' : ''}
