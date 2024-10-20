@@ -21,6 +21,8 @@ export default function Home() {
       setIsLoading(false);
     } catch (e) {
       console.log('Ошибка получения данных: ' + e);
+    } finally {
+      window.scrollTo(0, 0);
     }
   };
 
