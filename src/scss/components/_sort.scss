@@ -26,6 +26,10 @@
     }
   }
 
+  &__type {
+    cursor: pointer;
+  }
+
   &__popup {
     position: absolute;
     right: 0;
