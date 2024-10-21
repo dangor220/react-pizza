@@ -2,8 +2,20 @@ import React from 'react';
 import styles from './Pagination.module.scss';
 
 export default function Pagination({ paginationCount, selectedPage, setSelectedPage }) {
+  console.log(paginationCount);
+
   const generatePages = () => {
     const pages = [];
+    if (paginationCount === 1) {
+      return (
+        <li
+          key="first-page"
+          className={selectedPage === 1 ? `${styles.item} ${styles.selected}` : styles.item}
+          onClick={() => setSelectedPage(1)}>
+          1
+        </li>
+      );
+    }
     const delta = window.innerWidth <= 478 ? 1 : 2; // Количество видимых страниц рядом с выбранной
 
     // Всегда показываем первую и последнюю страницы
