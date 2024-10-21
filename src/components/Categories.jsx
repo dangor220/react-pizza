@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export default function Categories({ activeCategory, setActiveCategory }) {
+export default function Categories({ activeCategory, setActiveCategory, setSelectedPage }) {
   const [isListOpen, setIsListOpen] = useState(false);
 
   const categories = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые'];
@@ -21,6 +21,7 @@ export default function Categories({ activeCategory, setActiveCategory }) {
           <li
             className={activeCategory === categoryID ? 'active' : ''}
             onClick={() => {
+              setSelectedPage(1);
               setActiveCategory(categoryID);
             }}
             key={categoryID}>

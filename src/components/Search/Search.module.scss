@@ -1,0 +1,44 @@
+.root {
+  position: relative;
+  @media (max-width: 1024px) {
+    width: 100%;
+  }
+  &::before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 10px;
+    width: 20px;
+    height: 20px;
+    background: url('../../assets/images/icons/search.svg');
+    background-size: cover;
+    pointer-events: none;
+  }
+}
+.clear {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+.search {
+  width: 100%;
+  padding: 8px 15px;
+  padding-left: 40px;
+  border: 1px solid #c0c0c0;
+  border-radius: 10px;
+  font-size: 16px;
+
+  &:focus {
+    border: 2px solid #383838;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 13px;
+  }
+}
