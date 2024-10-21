@@ -21,7 +21,7 @@ export default function Home() {
 
   const [totalPages, setTotalPages] = useState(1);
   const [selectedPage, setSelectedPage] = useState(1);
-  const [visiblePizzas, setVisiblePizzas] = useState(8);
+  const [visiblePizzas, setVisiblePizzas] = useState(1);
 
   useEffect(() => {
     let urlBySort =

@@ -1,15 +1,77 @@
 import React from 'react';
-
 import styles from './Pagination.module.scss';
 
 export default function Pagination({ paginationCount, selectedPage, setSelectedPage }) {
-  console.log(paginationCount);
+  const generatePages = () => {
+    const pages = [];
+    const delta = window.innerWidth <= 478 ? 1 : 2; // Количество видимых страниц рядом с выбранной
+
+    // Всегда показываем первую и последнюю страницы
+    const range = {
+      start: Math.max(2, selectedPage - delta),
+      end: Math.min(paginationCount - 1, selectedPage + delta),
+    };
+
+    // Первая страница
+    pages.push(
+      <li
+        key="first-page"
+        className={selectedPage === 1 ? `${styles.item} ${styles.selected}` : styles.item}
+        onClick={() => setSelectedPage(1)}>
+        1
+      </li>,
+    );
+
+    // Троеточие перед серединой
+    if (range.start > 2) {
+      pages.push(
+        <li key="start-ellipsis" className={styles.ellipsis}>
+          ...
+        </li>,
+      );
+    }
+
+    // Страницы в середине
+    for (let i = range.start; i <= range.end; i++) {
+      pages.push(
+        <li
+          key={`page-${i}`} // Уникальный ключ для каждой страницы
+          className={selectedPage === i ? `${styles.item} ${styles.selected}` : styles.item}
+          onClick={() => setSelectedPage(i)}>
+          {i}
+        </li>,
+      );
+    }
+
+    // Троеточие после серединной группы
+    if (range.end < paginationCount - 1) {
+      pages.push(
+        <li key="end-ellipsis" className={styles.ellipsis}>
+          ...
+        </li>,
+      );
+    }
+
+    // Последняя страница
+    pages.push(
+      <li
+        key="last-page"
+        className={
+          selectedPage === paginationCount ? `${styles.item} ${styles.selected}` : styles.item
+        }
+        onClick={() => setSelectedPage(paginationCount)}>
+        {paginationCount}
+      </li>,
+    );
+
+    return pages;
+  };
 
   return (
     <div className={styles.root}>
-      <span
-        className={selectedPage === 1 ? styles.prev + ' ' + styles.inactive : styles.prev}
-        onClick={() => setSelectedPage(selectedPage - 1)}>
+      <button
+        className={selectedPage === 1 ? `${styles.prev} ${styles.inactive}` : styles.prev}
+        onClick={() => setSelectedPage(Math.max(1, selectedPage - 1))}>
         <svg
           version="1.1"
           xmlns="http://www.w3.org/2000/svg"
@@ -24,26 +86,13 @@ export default function Pagination({ paginationCount, selectedPage, setSelectedP
             />
           </g>
         </svg>
-      </span>
-      <ul className={styles.list}>
-        {[...Array(paginationCount)].map((_, index) => (
-          <li
-            className={
-              selectedPage === index + 1 ? styles.item + ' ' + styles.selected : styles.item
-            }
-            key={index}
-            onClick={() => {
-              setSelectedPage(index + 1);
-            }}>
-            {index + 1}
-          </li>
-        ))}
-      </ul>
-      <span
+      </button>
+      <ul className={styles.list}>{generatePages()}</ul>
+      <button
         className={
-          selectedPage === paginationCount ? styles.next + ' ' + styles.inactive : styles.next
+          selectedPage === paginationCount ? `${styles.next} ${styles.inactive}` : styles.next
         }
-        onClick={() => setSelectedPage(selectedPage + 1)}>
+        onClick={() => setSelectedPage(Math.min(paginationCount, selectedPage + 1))}>
         <svg
           version="1.1"
           xmlns="http://www.w3.org/2000/svg"
@@ -58,7 +107,7 @@ export default function Pagination({ paginationCount, selectedPage, setSelectedP
             />
           </g>
         </svg>
-      </span>
+      </button>
     </div>
   );
 }
