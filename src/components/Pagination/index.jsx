@@ -3,6 +3,8 @@ import React from 'react';
 import styles from './Pagination.module.scss';
 
 export default function Pagination({ paginationCount, selectedPage, setSelectedPage }) {
+  console.log(paginationCount);
+
   return (
     <div className={styles.root}>
       <span

@@ -41,7 +41,7 @@ export default function Home() {
       const request = await fetch(url);
       const data = await request.json();
 
-      setTotalPages(data.meta.total_pages);
+      setTotalPages(data.meta.total_pages || 1);
       setPizzasData(data.items);
       setIsLoading(false);
     } catch (e) {
