@@ -2,8 +2,6 @@ import React from 'react';
 import styles from './Pagination.module.scss';
 
 export default function Pagination({ paginationCount, selectedPage, setSelectedPage }) {
-  console.log(paginationCount);
-
   const generatePages = () => {
     const pages = [];
     if (paginationCount === 1) {
@@ -18,64 +16,65 @@ export default function Pagination({ paginationCount, selectedPage, setSelectedP
     }
     const delta = window.innerWidth <= 478 ? 1 : 2; // Количество видимых страниц рядом с выбранной
 
-    // Всегда показываем первую и последнюю страницы
-    const range = {
-      start: Math.max(2, selectedPage - delta),
-      end: Math.min(paginationCount - 1, selectedPage + delta),
-    };
+    if (paginationCount > 1) {
+      // Всегда показываем первую и последнюю страницы
+      const range = {
+        start: Math.max(2, selectedPage - delta),
+        end: Math.min(paginationCount - 1, selectedPage + delta),
+      };
 
-    // Первая страница
-    pages.push(
-      <li
-        key="first-page"
-        className={selectedPage === 1 ? `${styles.item} ${styles.selected}` : styles.item}
-        onClick={() => setSelectedPage(1)}>
-        1
-      </li>,
-    );
-
-    // Троеточие перед серединой
-    if (range.start > 2) {
-      pages.push(
-        <li key="start-ellipsis" className={styles.ellipsis}>
-          ...
-        </li>,
-      );
-    }
-
-    // Страницы в середине
-    for (let i = range.start; i <= range.end; i++) {
+      // Первая страница
       pages.push(
         <li
-          key={`page-${i}`} // Уникальный ключ для каждой страницы
-          className={selectedPage === i ? `${styles.item} ${styles.selected}` : styles.item}
-          onClick={() => setSelectedPage(i)}>
-          {i}
+          key="first-page"
+          className={selectedPage === 1 ? `${styles.item} ${styles.selected}` : styles.item}
+          onClick={() => setSelectedPage(1)}>
+          1
         </li>,
       );
-    }
 
-    // Троеточие после серединной группы
-    if (range.end < paginationCount - 1) {
+      // Троеточие перед серединой
+      if (range.start > 2) {
+        pages.push(
+          <li key="start-ellipsis" className={styles.ellipsis}>
+            ...
+          </li>,
+        );
+      }
+
+      // Страницы в середине
+      for (let i = range.start; i <= range.end; i++) {
+        pages.push(
+          <li
+            key={`page-${i}`} // Уникальный ключ для каждой страницы
+            className={selectedPage === i ? `${styles.item} ${styles.selected}` : styles.item}
+            onClick={() => setSelectedPage(i)}>
+            {i}
+          </li>,
+        );
+      }
+
+      // Троеточие после серединной группы
+      if (range.end < paginationCount - 1) {
+        pages.push(
+          <li key="end-ellipsis" className={styles.ellipsis}>
+            ...
+          </li>,
+        );
+      }
+
+      // Последняя страница
       pages.push(
-        <li key="end-ellipsis" className={styles.ellipsis}>
-          ...
+        <li
+          key="last-page"
+          className={
+            selectedPage === paginationCount ? `${styles.item} ${styles.selected}` : styles.item
+          }
+          onClick={() => setSelectedPage(paginationCount)}>
+          {paginationCount}
         </li>,
       );
     }
-
-    // Последняя страница
-    pages.push(
-      <li
-        key="last-page"
-        className={
-          selectedPage === paginationCount ? `${styles.item} ${styles.selected}` : styles.item
-        }
-        onClick={() => setSelectedPage(paginationCount)}>
-        {paginationCount}
-      </li>,
-    );
-
     return pages;
   };
 
