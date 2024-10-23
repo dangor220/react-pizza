@@ -8,18 +8,17 @@ import PizzaSkeleton from '../components/PizzaSkeleton';
 import Pagination from '../components/Pagination';
 import { useOutletContext } from 'react-router-dom';
 
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { setTotalPages, setSelectedPage } from '../redux/slices/filterSlice';
 
 export default function Home() {
-  const { activeCategory, activeSort, ascendSort } = useSelector((store) => store.filter);
+  const { activeCategory, activeSort, ascendSort, totalPages, selectedPage, visiblePizzas } =
+    useSelector((store) => store.filter);
+  const dispatch = useDispatch();
 
   const [pizzasData, setPizzasData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [searchValue] = useOutletContext();
-
-  const [totalPages, setTotalPages] = useState(1);
-  const [selectedPage, setSelectedPage] = useState(1);
-  const [visiblePizzas, _] = useState(8);
 
   useEffect(() => {
     let urlBySort =
@@ -38,7 +37,7 @@ export default function Home() {
       setIsLoading(true);
       const { data } = await axios.get(url);
 
-      setTotalPages(data.meta.total_pages || 1);
+      dispatch(setTotalPages(data.meta.total_pages || 1));
       setPizzasData(data.items);
       setIsLoading(false);
     } catch (e) {
@@ -58,7 +57,7 @@ export default function Home() {
   return (
     <>
       <div className="content__top">
-        <Categories activeCategory={activeCategory} setSelectedPage={setSelectedPage} />
+        <Categories activeCategory={activeCategory} />
         <Sort activeSort={activeSort} ascendSort={ascendSort} />
       </div>
       <h2 className="content__title">Все пиццы</h2>
@@ -66,7 +65,7 @@ export default function Home() {
       <Pagination
         paginationCount={totalPages}
         selectedPage={selectedPage}
-        setSelectedPage={setSelectedPage}
+        setSelectedPage={(number) => dispatch(setSelectedPage(number))}
       />
     </>
   );

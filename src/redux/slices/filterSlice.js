@@ -7,6 +7,9 @@ const initialState = {
     sort: 'rating',
   },
   ascendSort: true,
+  totalPages: 1,
+  selectedPage: 1,
+  visiblePizzas: 8,
 };
 
 export const filterSlice = createSlice({
@@ -22,8 +25,21 @@ export const filterSlice = createSlice({
     setAscendSort(store) {
       store.ascendSort = !store.ascendSort;
     },
+    setTotalPages(store, action) {
+      store.totalPages = action.payload;
+    },
+    setSelectedPage(store, action) {
+      store.selectedPage = action.payload;
+    },
   },
 });
 
-export const { setActiveCategory, setActiveSort, setAscendSort } = filterSlice.actions;
+export const {
+  setActiveCategory,
+  setActiveSort,
+  setAscendSort,
+  setTotalPages,
+  setSelectedPage,
+  setVisiblePizzas,
+} = filterSlice.actions;
 export default filterSlice.reducer;

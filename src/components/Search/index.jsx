@@ -1,26 +1,47 @@
-import { useContext, useEffect } from 'react';
+import { useCallback, useContext, useRef, useState } from 'react';
 
 import styles from './Search.module.scss';
 import { SearchContext } from '../../App';
 
 export default function Search() {
-  const { searchValue, setSearchValue } = useContext(SearchContext);
+  const [value, setValue] = useState('');
+  const { setSearchValue } = useContext(SearchContext);
+  const searchInput = useRef(null);
+
+  const debounce = (func, ms) => {
+    let timerID;
+    return function (...args) {
+      clearTimeout(timerID);
+      timerID = setTimeout(() => func.apply(this, args), ms);
+    };
+  };
+
+  let handleInputDebounce = useCallback(debounce(setSearchValue, 500), []);
+
+  const handleInput = (event) => {
+    setValue(event.target.value);
+    handleInputDebounce(event.target.value);
+  };
 
   return (
     <div className={styles.root}>
       <input
         className={styles.search}
+        ref={searchInput}
         type="text"
         placeholder="Поиск пиццы..."
-        value={searchValue}
-        onChange={(event) => setSearchValue(event.target.value)}
+        value={value}
+        onChange={(event) => {
+          handleInput(event);
+        }}
       />
-      {searchValue && (
+      {value && (
         <svg
           className={styles.clear}
           onClick={() => {
-            document.querySelector('input').focus();
+            searchInput.current.focus();
             setSearchValue('');
+            setValue('');
           }}
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 48 48">

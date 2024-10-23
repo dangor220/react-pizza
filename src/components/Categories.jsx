@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { setActiveCategory } from '../redux/slices/filterSlice';
-import { useDispatch, useSelector } from 'react-redux';
+import { setActiveCategory, setSelectedPage } from '../redux/slices/filterSlice';
+import { useDispatch } from 'react-redux';
 
-export default function Categories({ activeCategory, setSelectedPage }) {
+export default function Categories({ activeCategory }) {
   const [isListOpen, setIsListOpen] = useState(false);
 
   const dispatch = useDispatch();
@@ -25,7 +25,7 @@ export default function Categories({ activeCategory, setSelectedPage }) {
           <li
             className={activeCategory === categoryID ? 'active' : ''}
             onClick={() => {
-              setSelectedPage(1);
+              dispatch(setSelectedPage(1));
               dispatch(setActiveCategory(categoryID));
             }}
             key={categoryID}>
