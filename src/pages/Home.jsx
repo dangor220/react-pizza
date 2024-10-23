@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
 import Categories from '../components/Categories';
 import Sort from '../components/Sort';
@@ -7,17 +8,14 @@ import PizzaSkeleton from '../components/PizzaSkeleton';
 import Pagination from '../components/Pagination';
 import { useOutletContext } from 'react-router-dom';
 
+import { useSelector } from 'react-redux';
+
 export default function Home() {
+  const { activeCategory, activeSort, ascendSort } = useSelector((store) => store.filter);
+
   const [pizzasData, setPizzasData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [searchValue] = useOutletContext();
-
-  const [activeCategory, setActiveCategory] = useState(0);
-  const [activeSort, setActiveSort] = useState({
-    name: 'популярности',
-    sort: 'rating',
-  });
-  const [ascendSort, setAscendSort] = useState(true);
 
   const [totalPages, setTotalPages] = useState(1);
   const [selectedPage, setSelectedPage] = useState(1);
@@ -38,8 +36,7 @@ export default function Home() {
   const getPizzas = async (url = 'https://91819ac0547a360f.mokky.dev/items') => {
     try {
       setIsLoading(true);
-      const request = await fetch(url);
-      const data = await request.json();
+      const { data } = await axios.get(url);
 
       setTotalPages(data.meta.total_pages || 1);
       setPizzasData(data.items);
@@ -61,17 +58,8 @@ export default function Home() {
   return (
     <>
       <div className="content__top">
-        <Categories
-          activeCategory={activeCategory}
-          setActiveCategory={setActiveCategory}
-          setSelectedPage={setSelectedPage}
-        />
-        <Sort
-          activeSort={activeSort}
-          setActiveSort={setActiveSort}
-          ascendSort={ascendSort}
-          setAscendSort={setAscendSort}
-        />
+        <Categories activeCategory={activeCategory} setSelectedPage={setSelectedPage} />
+        <Sort activeSort={activeSort} ascendSort={ascendSort} />
       </div>
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">{renderPizzaBlock()}</div>

@@ -1,10 +1,11 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 
 import styles from './Search.module.scss';
 import { SearchContext } from '../../App';
 
 export default function Search() {
   const { searchValue, setSearchValue } = useContext(SearchContext);
+
   return (
     <div className={styles.root}>
       <input
@@ -17,7 +18,10 @@ export default function Search() {
       {searchValue && (
         <svg
           className={styles.clear}
-          onClick={() => setSearchValue('')}
+          onClick={() => {
+            document.querySelector('input').focus();
+            setSearchValue('');
+          }}
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 48 48">
           <path

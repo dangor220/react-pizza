@@ -1,7 +1,11 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { setActiveSort, setAscendSort } from '../redux/slices/filterSlice';
 
-export default function Sort({ activeSort, setActiveSort, ascendSort, setAscendSort }) {
+export default function Sort({ activeSort, ascendSort }) {
   const [popupIsOpen, setPopupIsOpen] = useState(false);
+
+  const dispatch = useDispatch();
 
   const sortBy = [
     { name: 'популярности', sort: 'rating' },
@@ -10,12 +14,12 @@ export default function Sort({ activeSort, setActiveSort, ascendSort, setAscendS
   ];
 
   const onClickSortType = (type) => {
-    setActiveSort(type);
+    dispatch(setActiveSort(type));
     setPopupIsOpen(false);
   };
 
   const handleTypeSort = () => {
-    setAscendSort(!ascendSort);
+    dispatch(setAscendSort());
   };
 
   return (
