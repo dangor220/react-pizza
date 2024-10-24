@@ -1,13 +1,20 @@
 import { Link } from 'react-router-dom';
 import Search from './Search';
+import { useDispatch } from 'react-redux';
+import { setActiveCategory } from '../redux/slices/filterSlice';
 
 export default function Header() {
+  const dispatch = useDispatch();
   return (
     <div className="header">
       <div className="container">
         <div className="header__info">
           <Link to="/">
-            <div className="header__logo">
+            <div
+              className="header__logo"
+              onClick={() => {
+                dispatch(setActiveCategory(0));
+              }}>
               <img src="./src/assets/images/icons/pizza.svg" alt="Pizza logo" />
               <div>
                 <h1>React Pizza</h1>
