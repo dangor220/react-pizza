@@ -1,17 +1,32 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { setActiveSort, setAscendSort } from '../redux/slices/filterSlice';
 
+export const sortBy = [
+  { name: 'популярности', sort: 'rating' },
+  { name: 'цене', sort: 'price' },
+  { name: 'алфавиту', sort: 'title' },
+];
+
 export default function Sort({ activeSort, ascendSort }) {
   const [popupIsOpen, setPopupIsOpen] = useState(false);
+  const sortRef = useRef();
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (!e.composedPath().includes(sortRef.current)) {
+        console.log('clcik');
+
+        setPopupIsOpen(false);
+      }
+    };
+    document.body.addEventListener('click', handleClickOutside);
+    return () => {
+      document.body.removeEventListener('click', handleClickOutside);
+    };
+  }, []);
 
   const dispatch = useDispatch();
-
-  const sortBy = [
-    { name: 'популярности', sort: 'rating' },
-    { name: 'цене', sort: 'price' },
-    { name: 'алфавиту', sort: 'title' },
-  ];
 
   const onClickSortType = (type) => {
     dispatch(setActiveSort(type));
@@ -23,7 +38,7 @@ export default function Sort({ activeSort, ascendSort }) {
   };
 
   return (
-    <div className="sort">
+    <div className="sort" ref={sortRef}>
       <div className="sort__label">
         <div className="sort__type" onClick={handleTypeSort}>
           {ascendSort ? (

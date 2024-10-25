@@ -1,10 +1,12 @@
 import { Link } from 'react-router-dom';
 import Search from './Search';
-import { useDispatch } from 'react-redux';
-import { setActiveCategory } from '../redux/slices/filterSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { setActiveCategory, setSelectedPage } from '../redux/slices/filterSlice';
 
 export default function Header() {
   const dispatch = useDispatch();
+  const { totalPrice, items } = useSelector((store) => store.cart);
+
   return (
     <div className="header">
       <div className="container">
@@ -14,6 +16,7 @@ export default function Header() {
               className="header__logo"
               onClick={() => {
                 dispatch(setActiveCategory(0));
+                dispatch(setSelectedPage(1));
               }}>
               <img src="./src/assets/images/icons/pizza.svg" alt="Pizza logo" />
               <div>
@@ -27,7 +30,7 @@ export default function Header() {
 
         <div className="header__cart">
           <Link to="/cart" className="button button--cart">
-            <span>520 ₽</span>
+            <span>{totalPrice}</span>
             <div className="button__delimiter"></div>
             <svg
               width="18"
@@ -57,7 +60,7 @@ export default function Header() {
                 strokeLinejoin="round"
               />
             </svg>
-            <span>3</span>
+            <span>{items.length}</span>
           </Link>
         </div>
       </div>

@@ -31,6 +31,13 @@ export const filterSlice = createSlice({
     setSelectedPage(store, action) {
       store.selectedPage = action.payload;
     },
+    setFilter(store, action) {
+      store.selectedPage = Number(action.payload.page);
+      store.visiblePizzas = Number(action.payload.limit);
+      store.activeCategory = Number(action.payload.category);
+      store.activeSort = action.payload.sortBy;
+      store.ascendSort = action.payload.ascendSort;
+    },
   },
 });
 
@@ -41,5 +48,6 @@ export const {
   setTotalPages,
   setSelectedPage,
   setVisiblePizzas,
+  setFilter,
 } = filterSlice.actions;
 export default filterSlice.reducer;
