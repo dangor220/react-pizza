@@ -15,8 +15,6 @@ export default function Sort({ activeSort, ascendSort }) {
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (!e.composedPath().includes(sortRef.current)) {
-        console.log('clcik');
-
         setPopupIsOpen(false);
       }
     };
