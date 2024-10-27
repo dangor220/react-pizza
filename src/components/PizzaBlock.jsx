@@ -15,7 +15,13 @@ export default function PizzaBlock({ id, imageUrl, title, types, sizes, price })
   }, [activeSize, activeType]);
 
   const dispatch = useDispatch();
-  const countPizzas = useSelector((state) => state.cart?.items[id]?.length);
+  const currentPizza = useSelector((state) => state.cart.items[id]);
+
+  const getCount = () => {
+    if (currentPizza) {
+      return currentPizza.reduce((sum, item) => (sum += item.count), 0);
+    }
+  };
 
   const onClickAdd = () => {
     const item = {
@@ -74,7 +80,7 @@ export default function PizzaBlock({ id, imageUrl, title, types, sizes, price })
               />
             </svg>
             <span>Добавить</span>
-            {countPizzas && <i>{countPizzas}</i>}
+            {getCount() && <i>{getCount()}</i>}
           </div>
         </div>
       </div>

@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
+  totalCount: 0,
   totalPrice: 0,
   items: {},
 };
@@ -13,18 +14,27 @@ export const cartSlice = createSlice({
       const { id, ...props } = action.payload;
 
       if (state.items[id]) {
-        state.items[id].push(props);
+        let added = false;
+        state.items[id].forEach((item) => {
+          if (item.type === props.type && item.size === props.size) {
+            item.count++;
+            added = true;
+          }
+        });
+
+        if (!added) {
+          state.items[id].push({ ...props, count: 1 });
+        }
       } else {
-        state.items[id] = [props];
+        state.items[id] = [{ ...props, count: 1 }];
       }
 
+      state.totalCount += 1;
       state.totalPrice += props.price;
     },
-    removeItem(state, action) {
-      //  state.items.filter((obj) => obj.id !== action.payload);
-    },
+    removeItem(state, action) {},
     clearItems(state) {
-      state.items = [];
+      (state.totalCount = 0), (state.totalPrice = 0), (state.items = {});
     },
   },
 });

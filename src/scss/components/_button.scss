@@ -102,6 +102,8 @@
   }
 
   &--add {
+    display: flex;
+    align-items: center;
     svg {
       margin-right: 2px;
       @media (max-width: 568px) {
