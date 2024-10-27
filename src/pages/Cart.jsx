@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { clearItems } from '../redux/slices/cartSlice';
 
+import { v4 as uuidv4 } from 'uuid';
+
 const Cart = () => {
   const { totalPrice, totalCount, items } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
@@ -19,7 +21,7 @@ const Cart = () => {
 
         <ul className="cart__list">
           {items.map((item) => (
-            <li className="cart__list-item" key={id}>
+            <li className="cart__list-item" key={uuidv4()}>
               <button className="cart__list-item_remove">-</button>
               {item.type[0].toUpperCase() + item.type.substring(1) + ', ' + item.size + 'cм'}
               <button className="cart__list-item_add">+</button>
