@@ -32,7 +32,27 @@ export const cartSlice = createSlice({
       state.totalCount += 1;
       state.totalPrice += props.price;
     },
-    removeItem(state, action) {},
+    removeItem(state, action) {
+      const { id, ...props } = action.payload;
+
+      if (state.items[id]) {
+        state.items[id].forEach((item) => {
+          if (item.count === 1) {
+            state.items[id] = state.items[id].filter(
+              (obj) => obj.type !== props.type || obj.size !== props.size,
+            );
+
+            state.items[id].length === 0 && delete state.items[id];
+          }
+          if (item.type === props.type && item.size === props.size) {
+            item.count--;
+          }
+        });
+      }
+
+      state.totalCount -= 1;
+      state.totalPrice -= props.price;
+    },
     clearItems(state) {
       (state.totalCount = 0), (state.totalPrice = 0), (state.items = {});
     },

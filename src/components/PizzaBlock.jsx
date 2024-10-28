@@ -80,7 +80,7 @@ export default function PizzaBlock({ id, imageUrl, title, types, sizes, price })
               />
             </svg>
             <span>Добавить</span>
-            {getCount() && <i>{getCount()}</i>}
+            {getCount() > 0 && <i>{getCount()}</i>}
           </div>
         </div>
       </div>

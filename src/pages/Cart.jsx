@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { clearItems } from '../redux/slices/cartSlice';
+import { addItem, clearItems, removeItem } from '../redux/slices/cartSlice';
 
 import { v4 as uuidv4 } from 'uuid';
 
@@ -9,30 +9,48 @@ const Cart = () => {
   const { totalPrice, totalCount, items } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
 
+  const handleAddItem = (id, item) => {
+    dispatch(addItem({ id, ...item }));
+  };
+
+  const handleRemoveItem = (id, item) => {
+    dispatch(removeItem({ id, ...item }));
+  };
+
   const renderCartItems = () => {
     const itemsArray = Object.entries(items);
 
-    return itemsArray.map(([id, items]) => (
-      <div className="cart__item" key={id}>
-        <div className="cart__image">
-          <img src={items[0].imageUrl} alt={items[0].title} />
-        </div>
-        <div className="cart__title">{items[0].title}</div>
+    return itemsArray.map(
+      ([id, items]) =>
+        items[0] && (
+          <div className="cart__item" key={id}>
+            <div className="cart__image">
+              <img src={items[0].imageUrl} alt={items[0].title} />
+            </div>
+            <div className="cart__title">{items[0].title}</div>
 
-        <ul className="cart__list">
-          {items.map((item) => (
-            <li className="cart__list-item" key={uuidv4()}>
-              <button className="cart__list-item_remove">-</button>
-              {item.type[0].toUpperCase() + item.type.substring(1) + ', ' + item.size + 'cм'}
-              <button className="cart__list-item_add">+</button>
-            </li>
-          ))}
-        </ul>
+            <ul className="cart__list">
+              {items.map((item) => (
+                <li className="cart__list-item" key={uuidv4()}>
+                  <button
+                    className="cart__list-item_remove"
+                    onClick={() => handleRemoveItem(id, item)}>
+                    -
+                  </button>
+                  {item.type[0].toUpperCase() + item.type.substring(1) + ', ' + item.size + 'cм'}
+                  <button className="cart__list-item_add" onClick={() => handleAddItem(id, item)}>
+                    +
+                  </button>
+                  <div className="cart__count">{item.count}</div>
+                </li>
+              ))}
+            </ul>
 
-        <div className="cart__price">Цена</div>
-        <button className="cart__remove">Удалить</button>
-      </div>
-    ));
+            <div className="cart__price">Цена</div>
+            <button className="cart__remove">Удалить</button>
+          </div>
+        ),
+    );
   };
 
   return (
