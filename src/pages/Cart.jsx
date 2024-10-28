@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { addItem, clearItems, removeItem, removeItemById } from '../redux/slices/cartSlice';
 
 import { v4 as uuidv4 } from 'uuid';
+import { CartEmpty } from '../components/CartEmpty';
 
 const Cart = () => {
   const { totalPrice, totalCount, items } = useSelector((state) => state.cart);
@@ -37,15 +38,14 @@ const Cart = () => {
                 <li className="cart__list-item" key={uuidv4()}>
                   {item.type[0].toUpperCase() + item.type.substring(1) + ', ' + item.size + 'cм.'}
                   <div className="cart__control">
-                    <button className="cart__control-add" onClick={() => handleAddItem(id, item)}>
-                      +
-                    </button>
-
-                    <div className="cart__control-count">{item.count}</div>
                     <button
                       className="cart__control-rem"
                       onClick={() => handleRemoveItem(id, item)}>
                       -
+                    </button>
+                    <div className="cart__control-count">{item.count}</div>
+                    <button className="cart__control-add" onClick={() => handleAddItem(id, item)}>
+                      +
                     </button>
                   </div>
                 </li>
@@ -75,6 +75,10 @@ const Cart = () => {
         ),
     );
   };
+
+  if (!totalPrice) {
+    return <CartEmpty />;
+  }
 
   return (
     <div className="container container--cart">
