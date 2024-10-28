@@ -1,18 +1,21 @@
-import { useCallback, useContext, useRef, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
+
+import { useDispatch } from 'react-redux';
+import { clearSearchValue, setSearchValue } from '../../redux/slices/filterSlice';
 
 import styles from './Search.module.scss';
-import { SearchContext } from '../../App';
 
 export default function Search() {
   const [value, setValue] = useState('');
-  const { setSearchValue } = useContext(SearchContext);
   const searchInput = useRef(null);
+
+  const dispatch = useDispatch();
 
   const debounce = (func, ms) => {
     let timerID;
     return function (...args) {
       clearTimeout(timerID);
-      timerID = setTimeout(() => func.apply(this, args), ms);
+      timerID = setTimeout(() => dispatch(func.apply(this, args)), ms);
     };
   };
 
@@ -40,7 +43,7 @@ export default function Search() {
           className={styles.clear}
           onClick={() => {
             searchInput.current.focus();
-            setSearchValue('');
+            dispatch(clearSearchValue());
             setValue('');
           }}
           xmlns="http://www.w3.org/2000/svg"

@@ -9,6 +9,7 @@ const initialState = {
   ascendSort: true,
   selectedPage: 1,
   visiblePizzas: 8,
+  searchValue: '',
 };
 
 export const filterSlice = createSlice({
@@ -34,6 +35,12 @@ export const filterSlice = createSlice({
       store.activeSort = action.payload.sortBy;
       store.ascendSort = action.payload.ascendSort;
     },
+    setSearchValue(store, action) {
+      store.searchValue = action.payload;
+    },
+    clearSearchValue(store) {
+      store.searchValue = '';
+    },
   },
 });
 
@@ -44,5 +51,7 @@ export const {
   setSelectedPage,
   setVisiblePizzas,
   setFilter,
+  setSearchValue,
+  clearSearchValue,
 } = filterSlice.actions;
 export default filterSlice.reducer;

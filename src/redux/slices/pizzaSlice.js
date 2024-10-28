@@ -40,7 +40,7 @@ export const pizzaSlice = createSlice({
     builder.addCase(fetchPizzas.fulfilled, (state, action) => {
       state.status = 'success';
       state.items = action.payload.items;
-      state.totalPages = action.payload.meta.total_pages;
+      state.totalPages = action.payload.meta.total_pages || 1;
     });
     builder.addCase(fetchPizzas.rejected, (state) => {
       state.status = 'error';

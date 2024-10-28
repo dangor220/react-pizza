@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { useNavigate, useOutletContext } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { setSelectedPage, setFilter } from '../redux/slices/filterSlice';
@@ -19,13 +19,13 @@ export default function Home() {
   const isMounted = useRef(false);
 
   const navigate = useNavigate();
-  const [searchValue] = useOutletContext();
 
   const dispatch = useDispatch();
   const pizzasData = useSelector((store) => store.pizza);
   const { activeCategory, activeSort, ascendSort, selectedPage, visiblePizzas } = useSelector(
     (store) => store.filter,
   );
+  const searchValue = useSelector((store) => store.filter.searchValue);
 
   useEffect(() => {
     if (window.location.search) {

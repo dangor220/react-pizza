@@ -4,21 +4,15 @@ import { useState, createContext } from 'react';
 
 import './scss/app.scss';
 
-export const SearchContext = createContext('');
-
 export default function App() {
-  const [searchValue, setSearchValue] = useState('');
-
   return (
     <div className="wrapper">
-      <SearchContext.Provider value={{ searchValue, setSearchValue }}>
-        <Header />
-        <div className="content">
-          <div className="container">
-            <Outlet context={[searchValue]} />
-          </div>
+      <Header />
+      <div className="content">
+        <div className="container">
+          <Outlet />
         </div>
-      </SearchContext.Provider>
+      </div>
     </div>
   );
 }
