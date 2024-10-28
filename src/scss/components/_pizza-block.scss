@@ -81,12 +81,15 @@
     font-size: 20px;
     line-height: 27px;
     letter-spacing: 0.015em;
-
+    span {
+      font-size: 17px;
+    }
     @media (max-width: 568px) {
       font-size: 16px;
     }
-    span {
-      font-size: 17px;
+    @media (max-width: 425px) {
+      display: flex;
+      flex-direction: column;
     }
   }
 }

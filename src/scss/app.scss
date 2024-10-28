@@ -85,6 +85,10 @@ body {
     .content__title {
       margin: 0;
     }
+    @media (max-width: 1024px) {
+      max-width: 100%;
+      margin: 0 auto;
+    }
   }
 }
 
@@ -100,12 +104,20 @@ body {
     align-items: center;
     font-size: 32px;
 
+    @media (max-width: 1024px) {
+      font-size: 20px;
+    }
     svg {
       position: relative;
       top: -2px;
       width: 30px;
       height: 30px;
       margin-right: 10px;
+
+      @media (max-width: 1024px) {
+        width: 20px;
+        height: 20px;
+      }
       path {
         stroke: $black;
         stroke-width: 1.9;
@@ -123,7 +135,16 @@ body {
       display: inline-block;
       margin-left: 7px;
       color: #b6b6b6;
+      font-size: 16px;
+    }
+
+    @media (max-width: 1024px) {
       font-size: 18px;
+    }
+    @media (max-width: 425px) {
+      span {
+        display: none;
+      }
     }
 
     span,
@@ -147,6 +168,9 @@ body {
     display: flex;
     flex-direction: column;
     margin-top: 30px;
+    @media (max-width: 1024px) {
+      margin-top: 15px;
+    }
   }
   &__item {
     display: flex;
@@ -154,15 +178,32 @@ body {
     border-top: 1px solid #f4f4f4;
     padding: 30px 0;
     gap: 20px;
+
+    @media (max-width: 1024px) {
+      padding: 15px 0;
+      gap: 10px;
+    }
+    @media (max-width: 768px) {
+      flex-direction: column;
+      align-items: start;
+    }
     &:last-child {
       border-bottom: 1px solid #f4f4f4;
     }
     &:first-child .cart__list::before {
       content: 'Тесто и размер:';
       position: absolute;
-      top: -80px;
+      top: -40px;
       left: 0;
       font-size: 18px;
+
+      @media (max-width: 1024px) {
+        font-size: 16px;
+        top: -55px;
+      }
+      @media (max-width: 768px) {
+        content: '';
+      }
     }
   }
   &__image {
@@ -179,10 +220,21 @@ body {
     font-weight: 700;
     font-size: 1.28rem;
     letter-spacing: 0.01em;
+    @media (max-width: 1024px) {
+      flex: 30%;
+      font-size: 1rem;
+    }
+    @media (max-width: 960px) {
+      flex: 25%;
+    }
+    @media (max-width: 768px) {
+      width: 100%;
+    }
   }
   &__list {
     position: relative;
     flex: 40%;
+
     &-item {
       display: flex;
       justify-content: space-between;
@@ -193,10 +245,20 @@ body {
         margin-bottom: 0;
       }
     }
+    @media (max-width: 1024px) {
+      flex: 30%;
+      font-size: 0.9rem;
+    }
+    @media (max-width: 768px) {
+      width: 100%;
+    }
   }
   &__control {
     display: flex;
 
+    @media (max-width: 1024px) {
+      margin-left: 5px;
+    }
     button {
       color: $orange;
       background-color: transparent;
@@ -215,6 +277,11 @@ body {
         background-color: $orange;
         color: #fff;
       }
+
+      @media (max-width: 1024px) {
+        width: 25px;
+        height: 25px;
+      }
     }
 
     &-count {
@@ -223,6 +290,11 @@ body {
       align-items: center;
       margin: 0 5px;
       min-width: 22px;
+      @media (max-width: 1024px) {
+        margin: 0 2px;
+        min-width: 15px;
+        font-size: 14px;
+      }
     }
   }
   &__price {
@@ -232,23 +304,56 @@ body {
     font-weight: 700;
     font-size: 1.3rem;
     letter-spacing: 0.01em;
+    @media (max-width: 1024px) {
+      font-size: 0.9rem;
+    }
+    @media (max-width: 960px) {
+      flex: 7%;
+      justify-content: start;
+    }
+    @media (max-width: 768px) {
+      width: 100%;
+    }
   }
   &__remove {
     border: none;
     background-color: transparent;
     cursor: pointer;
+    svg {
+      @media (max-width: 1024px) {
+        width: 25px;
+        height: 25px;
+      }
+    }
+    @media (max-width: 768px) {
+      display: none;
+    }
   }
 
   &__bottom {
     margin: 50px 0;
 
+    @media (max-width: 1024px) {
+      margin: 25px 0;
+    }
+
     &-details {
       display: flex;
       justify-content: space-between;
 
+      @media (max-width: 468px) {
+        flex-direction: column;
+      }
+
       span {
         font-size: 22px;
+        @media (max-width: 1024px) {
+          font-size: 20px;
+        }
 
+        @media (max-width: 768px) {
+          font-size: 18px;
+        }
         &:last-of-type {
           b {
             color: $orange;
@@ -262,6 +367,12 @@ body {
       justify-content: space-between;
       margin-top: 40px;
 
+      @media (max-width: 468px) {
+        flex-direction: column-reverse;
+        gap: 10px;
+        margin-top: 25px;
+      }
+
       .go-back-btn {
         display: flex;
         align-items: center;
@@ -270,10 +381,18 @@ body {
 
         border-color: color.adjust($gray-line, $lightness: -10%);
 
+        @media (max-width: 768px) {
+          padding: 10px;
+          width: 160px;
+        }
+
         span {
           color: color.adjust($gray-line, $lightness: -20%);
           font-weight: 500;
           font-weight: 600;
+          @media (max-width: 768px) {
+            font-size: 14px;
+          }
         }
 
         &:hover {
@@ -299,6 +418,12 @@ body {
         font-weight: 600;
         width: 210px;
         padding: 16px;
+
+        @media (max-width: 768px) {
+          font-size: 14px;
+          padding: 10px;
+          width: 160px;
+        }
       }
     }
   }
