@@ -37,14 +37,15 @@ export const cartSlice = createSlice({
 
       if (state.items[id]) {
         state.items[id].forEach((item) => {
-          if (item.count === 1) {
+          const isCurrentItem = item.type === props.type && item.size === props.size;
+          if (isCurrentItem && item.count === 1) {
             state.items[id] = state.items[id].filter(
               (obj) => obj.type !== props.type || obj.size !== props.size,
             );
 
             state.items[id].length === 0 && delete state.items[id];
           }
-          if (item.type === props.type && item.size === props.size) {
+          if (isCurrentItem) {
             item.count--;
           }
         });
@@ -53,11 +54,18 @@ export const cartSlice = createSlice({
       state.totalCount -= 1;
       state.totalPrice -= props.price;
     },
+    removeItemById(state, action) {
+      state.items[action.payload].forEach((item) => {
+        state.totalCount -= item.count;
+        state.totalPrice -= item.price * item.count;
+      });
+      delete state.items[action.payload];
+    },
     clearItems(state) {
       (state.totalCount = 0), (state.totalPrice = 0), (state.items = {});
     },
   },
 });
 
-export const { addItem, removeItem, clearItems } = cartSlice.actions;
+export const { addItem, removeItem, removeItemById, clearItems } = cartSlice.actions;
 export default cartSlice.reducer;

@@ -143,114 +143,6 @@ body {
       }
     }
   }
-
-  // &__item {
-  //   display: flex;
-  //   width: 100%;
-  //   border-top: 1px solid $gray-line;
-  //   padding-top: 30px;
-  //   margin-top: 30px;
-
-  //   &-img {
-  //     display: flex;
-  //     align-items: center;
-  //     margin-right: 15px;
-  //     width: 10%;
-
-  //     img {
-  //       width: 80px;
-  //       height: 80px;
-  //     }
-  //   }
-
-  //   &-info {
-  //     display: flex;
-  //     flex-direction: column;
-  //     justify-content: center;
-  //     width: 40%;
-
-  //     h3 {
-  //       font-weight: bold;
-  //       font-size: 22px;
-  //       line-height: 27px;
-  //       letter-spacing: 0.01em;
-  //     }
-
-  //     p {
-  //       font-size: 18px;
-  //       color: #8d8d8d;
-  //     }
-  //   }
-
-  //   &__items {
-  //     display: flex;
-  //   }
-
-  //   &-count {
-  //     display: flex;
-  //     align-items: center;
-  //     justify-content: space-between;
-  //     width: 13%;
-
-  //     &-minus {
-  //       svg {
-  //         path:first-of-type {
-  //           display: none;
-  //         }
-  //       }
-  //     }
-
-  //     b {
-  //       font-size: 22px;
-  //     }
-  //   }
-
-  //   &-price {
-  //     display: flex;
-  //     align-items: center;
-  //     justify-content: center;
-  //     width: 33%;
-
-  //     b {
-  //       font-weight: bold;
-  //       font-size: 22px;
-  //       letter-spacing: 0.01em;
-  //     }
-  //   }
-
-  //   &-remove {
-  //     display: flex;
-  //     align-items: center;
-  //     justify-content: flex-end;
-  //     width: 4%;
-
-  //     .button {
-  //       border-color: color.adjust($gray-line, $lightness: -10%);
-  //     }
-
-  //     svg {
-  //       transform: rotate(45deg);
-
-  //       path {
-  //         fill: color.adjust($gray-line, $lightness: -15%);
-  //       }
-  //     }
-
-  //     .button {
-  //       svg {
-  //         width: 11.5px;
-  //         height: 11.5px;
-  //         position: relative;
-  //       }
-  //       &:hover,
-  //       &:active {
-  //         border-color: color.adjust($gray-line, $lightness: -80%);
-  //         background-color: color.adjust($gray-line, $lightness: -80%);
-  //       }
-  //     }
-  //   }
-  // }
-
   &__items {
     display: flex;
     flex-direction: column;
@@ -261,14 +153,14 @@ body {
     align-items: center;
     border-top: 1px solid #f4f4f4;
     padding: 30px 0;
-
+    gap: 20px;
     &:last-child {
       border-bottom: 1px solid #f4f4f4;
     }
     &:first-child .cart__list::before {
       content: 'Тесто и размер:';
       position: absolute;
-      top: -75px;
+      top: -80px;
       left: 0;
       font-size: 18px;
     }
@@ -277,29 +169,74 @@ body {
     width: 80px;
     height: 80px;
 
-    margin-right: 15px;
-
     img {
       max-width: 100%;
       transform: translateY(6px);
     }
   }
   &__title {
-    flex: 45%;
+    flex: 40%;
     font-weight: 700;
     font-size: 1.28rem;
     letter-spacing: 0.01em;
-    margin-right: 15px;
   }
   &__list {
     position: relative;
     flex: 40%;
+    &-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      color: #8d8d8d;
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+  &__control {
+    display: flex;
+
+    button {
+      color: $orange;
+      background-color: transparent;
+      border: 2px solid $orange;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      font-size: 18px;
+      font-weight: bold;
+      line-height: 0;
+
+      transition: 0.3s linear all;
+      cursor: pointer;
+
+      &:hover {
+        background-color: $orange;
+        color: #fff;
+      }
+    }
+
+    &-count {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0 5px;
+      min-width: 22px;
+    }
   }
   &__price {
-    flex: 10%;
+    display: flex;
+    flex: 12%;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1.3rem;
+    letter-spacing: 0.01em;
   }
   &__remove {
-    flex: 5%;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
   }
 
   &__bottom {
