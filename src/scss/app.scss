@@ -193,13 +193,13 @@ body {
     &:first-child .cart__list::before {
       content: 'Тесто и размер:';
       position: absolute;
-      top: -40px;
+      top: -80px;
       left: 0;
       font-size: 18px;
 
       @media (max-width: 1024px) {
         font-size: 16px;
-        top: -55px;
+        top: -65px;
       }
       @media (max-width: 768px) {
         content: '';
