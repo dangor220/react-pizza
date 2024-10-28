@@ -37,9 +37,11 @@ export const filterSlice = createSlice({
     },
     setSearchValue(store, action) {
       store.searchValue = action.payload;
+      store.selectedPage = 1;
     },
     clearSearchValue(store) {
       store.searchValue = '';
+      store.selectedPage = 1;
     },
   },
 });
