@@ -439,9 +439,16 @@ body {
     height: calc(100vh - 320px);
     text-align: center;
 
+    @media (max-height: 773px) {
+      height: auto;
+    }
+
     h2 {
       font-size: 32px;
       margin-bottom: 10px;
+      @media (max-width: 768px) {
+        font-size: 24px;
+      }
     }
 
     p {
@@ -449,6 +456,9 @@ body {
       line-height: 145.4%;
       letter-spacing: 0.01em;
       color: #777777;
+      @media (max-width: 768px) {
+        font-size: 15px;
+      }
     }
 
     icon {
@@ -460,6 +470,11 @@ body {
       display: block;
       width: 300px;
       margin: 45px auto 60px;
+
+      @media (max-width: 768px) {
+        width: 200px;
+        margin: 30px auto 40px;
+      }
     }
 
     .button--black {
@@ -468,6 +483,10 @@ body {
       margin: 0 auto;
       font-weight: 600;
       font-size: 18px;
+      @media (max-width: 768px) {
+        width: 200px;
+        font-size: 15px;
+      }
     }
   }
 }

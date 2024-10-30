@@ -1,6 +1,5 @@
 import Header from './components/Header';
 import { Outlet } from 'react-router-dom';
-import { useState, createContext } from 'react';
 
 import './scss/app.scss';
 

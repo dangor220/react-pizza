@@ -8,6 +8,7 @@ import App from './App.jsx';
 import ErrorPage from './pages/Error.jsx';
 import Home from './pages/Home.jsx';
 import Cart from './pages/Cart.jsx';
+import PizzaCard from './components/PizzaCard.jsx';
 
 const router = createBrowserRouter([
   {
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
       {
         path: 'cart',
         element: <Cart />,
+      },
+      {
+        path: 'pizza/:id',
+        element: <PizzaCard />,
       },
     ],
   },

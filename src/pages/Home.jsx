@@ -80,7 +80,6 @@ export default function Home() {
   const skeleton = [...Array(visiblePizzas)].map((_, skeletonID) => (
     <PizzaSkeleton key={skeletonID} />
   ));
-  const pizzas = pizzasData.items.map((pizza) => <PizzaBlock key={pizza.id} {...pizza} />);
 
   return (
     <>
@@ -92,7 +91,11 @@ export default function Home() {
       {pizzasData.status === 'error' ? (
         <NotFound fetchError={true} />
       ) : (
-        <div className="content__items">{pizzasData.status === 'loading' ? skeleton : pizzas}</div>
+        <div className="content__items">
+          {pizzasData.status === 'loading'
+            ? skeleton
+            : pizzasData.items.map((pizza) => <PizzaBlock key={pizza.id} {...pizza} />)}
+        </div>
       )}
       <div className="content__items">{}</div>
       <Pagination

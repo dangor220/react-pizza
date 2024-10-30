@@ -1,5 +1,19 @@
 @import '../variables';
 
+.pizza-info {
+  cursor: pointer;
+
+  img {
+    transition: 0.3s all cubic-bezier(0.54, 0.63, 0.23, 0.85);
+  }
+  &:hover {
+    img {
+      transition: 0.3s all cubic-bezier(0.54, 0.63, 0.23, 0.85);
+      transform: scale(0.9);
+    }
+  }
+}
+
 .pizza-block-wrapper {
   display: flex;
   justify-content: center;

@@ -1,21 +1,27 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addItem } from '../redux/slices/cartSlice';
+import { setResultPrice } from '../redux/slices/pizzaSlice.js';
+import { useNavigate } from 'react-router-dom';
+import PizzaSelector from './PizzaSelector.jsx';
 
 export default function PizzaBlock({ id, imageUrl, title, types, sizes, price }) {
-  const [activeSize, setActiveSize] = useState(0);
-  const [activeType, setActiveType] = useState(0);
-  const [resultPrice, setResultPrice] = useState(0);
-
-  const pizzaTypes = ['тонкое', 'традиционное', 'другое'];
-  const pizzaSizes = [26, 30, 40];
+  const currentPizza = useSelector((state) => state.cart.items[id]);
+  const { pizzaTypes, pizzaSizes } = useSelector((state) => state.pizza);
+  const { activeSize, activeType, resultPrice } = useSelector(
+    (store) => store.pizza.pizzaProps[id],
+  );
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    setResultPrice(price[activeSize] + (activeType + 1) * 50);
+    dispatch(
+      setResultPrice({
+        id,
+        price: price[activeSize] + (activeType + 0) * 50,
+      }),
+    );
   }, [activeSize, activeType]);
-
-  const dispatch = useDispatch();
-  const currentPizza = useSelector((state) => state.cart.items[id]);
 
   const getCount = () => {
     if (currentPizza) {
@@ -39,30 +45,22 @@ export default function PizzaBlock({ id, imageUrl, title, types, sizes, price })
   return (
     <div className="pizza-block-wrapper">
       <div className="pizza-block">
-        <img className="pizza-block__image" src={imageUrl} alt="Pizza" />
-        <h4 className="pizza-block__title">{title}</h4>
-        <div className="pizza-block__selector">
-          <ul>
-            {types.map((type, typeID) => (
-              <li
-                className={typeID === activeType ? 'active' : ''}
-                onClick={() => setActiveType(typeID)}
-                key={typeID}>
-                {pizzaTypes[type]}
-              </li>
-            ))}
-          </ul>
-          <ul>
-            {sizes.map((size, sizeID) => (
-              <li
-                className={sizeID === activeSize ? 'active' : ''}
-                onClick={() => setActiveSize(sizeID)}
-                key={sizeID}>
-                {size} см.
-              </li>
-            ))}
-          </ul>
+        <div
+          className="pizza-info"
+          onClick={() => {
+            navigate(`pizza/` + id);
+          }}>
+          <img className="pizza-block__image" src={imageUrl} alt="Pizza" />
+          <h4 className="pizza-block__title">{title}</h4>
         </div>
+
+        <PizzaSelector
+          id={id}
+          types={types}
+          sizes={sizes}
+          activeSize={activeSize}
+          activeType={activeType}
+        />
         <div className="pizza-block__bottom">
           <div className="pizza-block__price">
             <span>Цена:</span> {resultPrice} ₽
