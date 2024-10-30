@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addItem } from '../redux/slices/cartSlice';
 import PizzaSelector from './PizzaSelector';
 
+// TODO: Skeleton and layout
+
 export default function PizzaCard() {
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -40,7 +42,7 @@ export default function PizzaCard() {
     pizzaProps[id] && (
       <div className="pizza__card">
         <div className="pizza__image">
-          <img src={pizza.imageUrl.substring(1)} alt={pizza.title} />
+          <img src={pizza.imageUrl} alt={pizza.title} />
         </div>
         <div className="pizza__info">
           <h2 className="pizza__title">{pizza.title}</h2>
