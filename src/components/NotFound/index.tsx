@@ -2,7 +2,7 @@ import React from 'react';
 
 import styles from './NotFound.module.scss';
 
-export default function NotFound({ fetchError = false }) {
+export default function NotFound({ fetchError = false }): React.ReactNode {
   return (
     <div className={styles.root}>
       <img src="./src/assets/images/icons/notfound.png" alt="notfound" />

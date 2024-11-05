@@ -9,7 +9,7 @@
   &:hover {
     img {
       transition: 0.3s all cubic-bezier(0.54, 0.63, 0.23, 0.85);
-      transform: scale(0.9);
+      transform: translate(8px) scale(0.97);
     }
   }
 }

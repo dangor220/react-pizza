@@ -1,18 +1,47 @@
 import React, { useEffect } from 'react';
 import { fetchPizza, setResultPrice } from '../redux/slices/pizzaSlice';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { addItem } from '../redux/slices/cartSlice';
 import PizzaSelector from './PizzaSelector';
+import { AppDispatch } from '../redux/store';
 
 // TODO: Skeleton and layout
 
-export default function PizzaCard() {
-  const { id } = useParams();
-  const dispatch = useDispatch();
+interface pizzaState {
+  pizza: {
+    items: [];
+    pizzaItem: {
+      id: number;
+      imageUrl: string;
+      title: string;
+      description: string;
+      price: number[];
+      types: number[];
+      sizes: number[];
+    };
+    pizzaProps: any;
+    pizzaStatus: 'loading' | 'succeeded' | 'error';
+    status: 'loading' | 'succeeded' | 'error';
+    error: string | null;
+    totalPages: number;
+    pizzaTypes: string[];
+    pizzaSizes: number[];
+  };
+}
 
-  const { pizza, pizzaProps, pizzaTypes, pizzaSizes } = useSelector((state) => state.pizza);
-  const currentPizza = useSelector((state) => state.cart.items[id]);
+export default function PizzaCard(): React.ReactNode {
+  const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
+  const dispatch = useDispatch<AppDispatch>();
+
+  const { pizzaItem, pizzaProps, pizzaStatus, error, pizzaTypes, pizzaSizes } = useSelector(
+    (state: pizzaState) => state.pizza,
+  );
+  if (!id) {
+    return <>Загрузка...</>;
+  }
+  const currentPizza = useSelector((state: any) => state.cart.items[id]);
 
   useEffect(() => {
     dispatch(fetchPizza(id));
@@ -20,9 +49,9 @@ export default function PizzaCard() {
 
   const onClickAdd = () => {
     const item = {
-      id: pizza.id,
-      imageUrl: pizza.imageUrl,
-      title: pizza.title,
+      id: pizzaItem.id,
+      imageUrl: pizzaItem.imageUrl,
+      title: pizzaItem.title,
       price: pizzaProps[id].resultPrice,
       type: pizzaTypes[pizzaProps[id].activeType],
       size: pizzaSizes[pizzaProps[id].activeSize],
@@ -33,40 +62,45 @@ export default function PizzaCard() {
 
   const getCount = () => {
     if (currentPizza) {
-      return currentPizza.reduce((sum, item) => (sum += item.count), 0);
+      return currentPizza.reduce((sum: number, item: { count: number }) => (sum += item.count), 0);
     }
   };
 
+  if (pizzaStatus === 'error') {
+    alert(`Ошибка получения данных! ${error} Вернуться на страницу.`);
+    navigate('/');
+  }
+
   return (
-    pizza.id == id &&
+    pizzaItem.id == Number(id) &&
     pizzaProps[id] && (
       <div className="pizza__card">
         <div className="pizza__image">
-          <img src={pizza.imageUrl} alt={pizza.title} />
+          <img src={pizzaItem.imageUrl} alt={pizzaItem.title} />
         </div>
         <div className="pizza__info">
-          <h2 className="pizza__title">{pizza.title}</h2>
-          <p className="pizza__description">{pizza.description}</p>
-          <span className="pizza__price">{pizza.price}</span>
+          <h2 className="pizza__title">{pizzaItem.title}</h2>
+          <p className="pizza__description">{pizzaItem.description}</p>
+          <span className="pizza__price">{pizzaItem.price}</span>
           <PizzaSelector
             id={id}
-            types={pizza.types}
-            sizes={pizza.sizes}
+            types={pizzaItem.types}
+            sizes={pizzaItem.sizes}
             activeSize={pizzaProps[id].activeSize}
             activeType={pizzaProps[id].activeType}
-            handleSelectType={(typeID) => {
+            handleSelectType={(typeID: number) => {
               dispatch(
                 setResultPrice({
                   id,
-                  price: pizza.price[pizzaProps[id].activeSize] + (typeID + 0) * 50,
+                  price: pizzaItem.price[pizzaProps[id].activeSize] + (typeID + 0) * 50,
                 }),
               );
             }}
-            handleSelectSize={(sizeID) => {
+            handleSelectSize={(sizeID: number) => {
               dispatch(
                 setResultPrice({
                   id,
-                  price: pizza.price[sizeID] + (pizzaProps[id].activeType + 0) * 50,
+                  price: pizzaItem.price[sizeID] + (pizzaProps[id].activeType + 0) * 50,
                 }),
               );
             }}

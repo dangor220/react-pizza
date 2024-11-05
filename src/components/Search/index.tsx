@@ -7,21 +7,29 @@ import styles from './Search.module.scss';
 
 export default function Search() {
   const [value, setValue] = useState('');
-  const searchInput = useRef(null);
+  const searchInput = useRef<HTMLInputElement>(null);
 
   const dispatch = useDispatch();
 
-  const debounce = (func, ms) => {
-    let timerID;
-    return function (...args) {
+  type DebouncedFunction<T extends (...args: any[]) => any> = (
+    this: ThisParameterType<T>, // Типизируем `this` для возвращаемой функции
+    ...args: Parameters<T>
+  ) => void;
+
+  const debounce = <T extends (...args: any[]) => any>(
+    func: T,
+    ms: number,
+  ): DebouncedFunction<T> => {
+    let timerID: number;
+    return function (this: ThisParameterType<T>, ...args: Parameters<T>): void {
       clearTimeout(timerID);
-      timerID = setTimeout(() => dispatch(func.apply(this, args)), ms);
+      timerID = setTimeout(() => func.apply(this, args), ms);
     };
   };
 
   let handleInputDebounce = useCallback(debounce(setSearchValue, 500), []);
 
-  const handleInput = (event) => {
+  const handleInput = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setValue(event.target.value);
     handleInputDebounce(event.target.value);
   };
@@ -42,7 +50,7 @@ export default function Search() {
         <svg
           className={styles.clear}
           onClick={() => {
-            searchInput.current.focus();
+            searchInput.current?.focus();
             dispatch(clearSearchValue());
             setValue('');
           }}

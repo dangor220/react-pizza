@@ -1,12 +1,14 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
+
 const initialState = {
   items: [],
-  pizza: {},
+  pizzaItem: {},
   pizzaProps: {},
   pizzaStatus: 'loading',
   status: 'loading',
+  error: '',
   totalPages: 1,
   pizzaTypes: ['тонкое', 'традиционное', 'другое'],
   pizzaSizes: [26, 30, 40],
@@ -29,7 +31,7 @@ export const fetchPizzas = createAsyncThunk('pizza/fetchPizzas', async (props) =
   return data;
 });
 
-export const fetchPizza = createAsyncThunk('pizza/fetchPizza', async (pizzaID) => {
+export const fetchPizza = createAsyncThunk('pizza/fetchPizza', async (pizzaID: string | undefined) => {
   const { data } = await axios.get(`https://91819ac0547a360f.mokky.dev/items/${pizzaID}`);
   return data;
 });
@@ -95,10 +97,10 @@ export const pizzaSlice = createSlice({
     });
     builder.addCase(fetchPizza.pending, (state) => {
       state.pizzaStatus = 'loading';
-      state.pizza = {};
+      state.pizzaItem = {};
     });
     builder.addCase(fetchPizza.fulfilled, (state, action) => {
-      state.pizza = action.payload;
+      state.pizzaItem = action.payload;
       state.pizzaProps[action.payload.id] = {
         activeSize: 0,
         activeType: 0,
@@ -107,9 +109,10 @@ export const pizzaSlice = createSlice({
 
       state.pizzaStatus = 'success';
     });
-    builder.addCase(fetchPizza.rejected, (state) => {
+    builder.addCase(fetchPizza.rejected, (state, action) => {
       state.pizzaStatus = 'error';
-      state.pizza = {};
+      state.error = action.error.message;
+      state.pizzaItem = {};
     });
   },
 });

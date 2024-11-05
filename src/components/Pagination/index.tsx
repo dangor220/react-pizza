@@ -1,7 +1,17 @@
 import React from 'react';
 import styles from './Pagination.module.scss';
 
-export default function Pagination({ paginationCount, selectedPage, setSelectedPage }) {
+type PaginationProps = {
+  paginationCount: number;
+  selectedPage: number;
+  setSelectedPage: any;
+};
+
+export default function Pagination({
+  paginationCount,
+  selectedPage,
+  setSelectedPage,
+}: PaginationProps): React.ReactNode {
   const generatePages = () => {
     const pages = [];
     if (paginationCount === 1) {

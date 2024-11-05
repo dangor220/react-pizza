@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addItem } from '../redux/slices/cartSlice';
+import { addItem } from '../redux/slices/cartSlice.js';
 import { setResultPrice } from '../redux/slices/pizzaSlice.js';
 import { useNavigate } from 'react-router-dom';
 import PizzaSelector from './PizzaSelector.jsx';

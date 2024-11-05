@@ -14,14 +14,14 @@ import PizzaSkeleton from '../components/PizzaSkeleton';
 import Pagination from '../components/Pagination';
 import NotFound from '../components/NotFound';
 
-export default function Home() {
-  const isSearch = useRef(false);
-  const isMounted = useRef(false);
+export default function Home(): React.ReactNode {
+  const isSearch = useRef<boolean>(false);
+  const isMounted = useRef<boolean>(false);
 
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
-  const pizzasData = useSelector((store) => store.pizza);
+  const pizzasData = useSelector<{ pizza: {} }>((store) => store.pizza);
   const { activeCategory, activeSort, ascendSort, selectedPage, visiblePizzas } = useSelector(
     (store) => store.filter,
   );
