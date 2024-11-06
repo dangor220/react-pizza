@@ -2,7 +2,7 @@ import React from 'react';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 
-export default function PizzaSkeleton() {
+export default function PizzaSkeleton(): React.ReactNode {
   return (
     <div className="pizza-block-wrapper">
       <div className="skeleton pizza-block">

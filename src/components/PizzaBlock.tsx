@@ -5,11 +5,53 @@ import { setResultPrice } from '../redux/slices/pizzaSlice.js';
 import { useNavigate } from 'react-router-dom';
 import PizzaSelector from './PizzaSelector.jsx';
 
-export default function PizzaBlock({ id, imageUrl, title, types, sizes, price }) {
-  const currentPizza = useSelector((state) => state.cart.items[id]);
-  const { pizzaTypes, pizzaSizes } = useSelector((state) => state.pizza);
+type PizzaBlockProps = {
+  id: number;
+  imageUrl: string;
+  title: string;
+  types: number[];
+  sizes: number[];
+  price: number[];
+  category: number;
+  rating: number;
+};
+type CartStore = {
+  cart: {
+    items: {
+      [id: number]: [];
+    };
+  };
+};
+type PizzaStore = {
+  pizza: {
+    pizzaTypes: string[];
+    pizzaSizes: number[];
+  };
+};
+type PizzaStoreById = {
+  pizza: {
+    pizzaProps: {
+      [id: number]: {
+        activeSize: number;
+        activeType: number;
+        resultPrice: number;
+      };
+    };
+  };
+};
+
+export default function PizzaBlock({
+  id,
+  imageUrl,
+  title,
+  types,
+  sizes,
+  price,
+}: PizzaBlockProps): React.ReactNode {
+  const currentPizza = useSelector((state: CartStore) => state.cart.items[id]);
+  const { pizzaTypes, pizzaSizes } = useSelector((state: PizzaStore) => state.pizza);
   const { activeSize, activeType, resultPrice } = useSelector(
-    (store) => store.pizza.pizzaProps[id],
+    (store: PizzaStoreById) => store.pizza.pizzaProps[id],
   );
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -23,9 +65,11 @@ export default function PizzaBlock({ id, imageUrl, title, types, sizes, price })
     );
   }, [activeSize, activeType]);
 
-  const getCount = () => {
+  const getCount = (): number => {
     if (currentPizza) {
-      return currentPizza.reduce((sum, item) => (sum += item.count), 0);
+      return currentPizza.reduce((sum: number, item: { count: number }) => (sum += item.count), 0);
+    } else {
+      return 0;
     }
   };
 

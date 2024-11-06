@@ -1,16 +1,20 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { setActiveCategory, setSelectedPage } from '../redux/slices/filterSlice';
 import { useDispatch } from 'react-redux';
 
-export default function Categories({ activeCategory }) {
+type ActiveCategoryProps = {
+  activeCategory: number;
+};
+
+export default function Categories({ activeCategory }: ActiveCategoryProps): React.ReactNode {
   const [isListOpen, setIsListOpen] = useState(false);
 
   const dispatch = useDispatch();
 
-  const categories = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые'];
+  const categories: string[] = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые'];
 
   const handleClickBurger = () => {
-    const userView = window.innerWidth <= 568;
+    const userView: boolean = window.innerWidth <= 568;
     if (userView) {
       setIsListOpen(!isListOpen);
     }

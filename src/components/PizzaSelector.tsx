@@ -2,6 +2,16 @@ import React from 'react';
 import { setActiveSize, setActiveType } from '../redux/slices/pizzaSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
+type PizzaSelectorProps = {
+  id: number;
+  types: number[];
+  sizes: number[];
+  activeType: number;
+  activeSize: number;
+  handleSelectType?: any;
+  handleSelectSize?: any;
+};
+
 export default function PizzaSelector({
   id,
   types,
@@ -10,8 +20,8 @@ export default function PizzaSelector({
   activeSize,
   handleSelectType,
   handleSelectSize,
-}) {
-  const { pizzaTypes, pizzaSizes } = useSelector((state) => state.pizza);
+}: PizzaSelectorProps): React.ReactNode {
+  const { pizzaTypes } = useSelector((state: { pizza: { pizzaTypes: string[] } }) => state.pizza);
   const dispatch = useDispatch();
   return (
     <div className="pizza-block__selector">

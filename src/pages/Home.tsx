@@ -14,6 +14,39 @@ import PizzaSkeleton from '../components/PizzaSkeleton';
 import Pagination from '../components/Pagination';
 import NotFound from '../components/NotFound';
 
+type FilterStore = {
+  filter: {
+    activeCategory: number;
+    activeSort: {
+      name: string;
+      sort: string;
+    };
+    ascendSort: boolean;
+    selectedPage: number;
+    visiblePizzas: number;
+    searchValue: string;
+  };
+};
+
+type PizzaItemProp = {
+  id: number;
+  imageUrl: string;
+  title: string;
+  description: string;
+  types: number[];
+  sizes: number[];
+  price: number[];
+  category: number;
+  rating: number;
+};
+type PizzaDataProps = {
+  pizza: {
+    items: PizzaItemProp[];
+    status: string;
+    totalPages: number;
+  };
+};
+
 export default function Home(): React.ReactNode {
   const isSearch = useRef<boolean>(false);
   const isMounted = useRef<boolean>(false);
@@ -21,19 +54,19 @@ export default function Home(): React.ReactNode {
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
-  const pizzasData = useSelector<{ pizza: {} }>((store) => store.pizza);
-  const { activeCategory, activeSort, ascendSort, selectedPage, visiblePizzas } = useSelector(
-    (store) => store.filter,
-  );
-  const searchValue = useSelector((store) => store.filter.searchValue);
+  const pizzasData = useSelector((store: PizzaDataProps) => store.pizza);
+  const { activeCategory, activeSort, ascendSort, selectedPage, visiblePizzas, searchValue } =
+    useSelector((store: FilterStore) => store.filter);
 
   useEffect(() => {
     if (window.location.search) {
-      const params = qs.parse(window.location.search.substring(1));
+      const params: qs.ParsedQs = qs.parse(window.location.search.substring(1));
 
-      let sortBy;
+      let sortBy: { name: string; sort: string } | undefined;
+
       if (params.sortBy[0] === '-') {
         sortBy = sortData.find((obj) => obj.sort === params.sortBy.substring(1));
+
         params.ascendSort = false;
       } else {
         sortBy = sortData.find((obj) => obj.sort === params.sortBy);
@@ -63,6 +96,7 @@ export default function Home(): React.ReactNode {
   useEffect(() => {
     if (!isSearch.current) {
       dispatch(
+        //@ts-ignore
         fetchPizzas({
           activeCategory,
           activeSort,
@@ -101,7 +135,7 @@ export default function Home(): React.ReactNode {
       <Pagination
         paginationCount={pizzasData.totalPages}
         selectedPage={selectedPage}
-        setSelectedPage={(number) => dispatch(setSelectedPage(number))}
+        setSelectedPage={(num: number) => dispatch(setSelectedPage(num))}
       />
     </>
   );

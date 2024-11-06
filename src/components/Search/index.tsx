@@ -12,7 +12,7 @@ export default function Search() {
   const dispatch = useDispatch();
 
   type DebouncedFunction<T extends (...args: any[]) => any> = (
-    this: ThisParameterType<T>, // Типизируем `this` для возвращаемой функции
+    this: ThisParameterType<T>,
     ...args: Parameters<T>
   ) => void;
 
@@ -23,7 +23,8 @@ export default function Search() {
     let timerID: number;
     return function (this: ThisParameterType<T>, ...args: Parameters<T>): void {
       clearTimeout(timerID);
-      timerID = setTimeout(() => func.apply(this, args), ms);
+
+      timerID = setTimeout(() => dispatch(func.apply(this, args)), ms);
     };
   };
 

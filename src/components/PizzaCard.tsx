@@ -8,7 +8,7 @@ import { AppDispatch } from '../redux/store';
 
 // TODO: Skeleton and layout
 
-interface pizzaState {
+type PizzaState = {
   pizza: {
     items: [];
     pizzaItem: {
@@ -28,7 +28,7 @@ interface pizzaState {
     pizzaTypes: string[];
     pizzaSizes: number[];
   };
-}
+};
 
 export default function PizzaCard(): React.ReactNode {
   const { id } = useParams<{ id: string }>();
@@ -36,7 +36,7 @@ export default function PizzaCard(): React.ReactNode {
   const dispatch = useDispatch<AppDispatch>();
 
   const { pizzaItem, pizzaProps, pizzaStatus, error, pizzaTypes, pizzaSizes } = useSelector(
-    (state: pizzaState) => state.pizza,
+    (state: PizzaState) => state.pizza,
   );
   if (!id) {
     return <>Загрузка...</>;
@@ -81,7 +81,6 @@ export default function PizzaCard(): React.ReactNode {
         <div className="pizza__info">
           <h2 className="pizza__title">{pizzaItem.title}</h2>
           <p className="pizza__description">{pizzaItem.description}</p>
-          <span className="pizza__price">{pizzaItem.price}</span>
           <PizzaSelector
             id={id}
             types={pizzaItem.types}

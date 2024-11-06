@@ -6,19 +6,42 @@ import { addItem, clearItems, removeItem, removeItemById } from '../redux/slices
 import { v4 as uuidv4 } from 'uuid';
 import { CartEmpty } from '../components/CartEmpty';
 
-const Cart = () => {
-  const { totalPrice, totalCount, items } = useSelector((state) => state.cart);
+type CartItem = {
+  imageUrl: string;
+  title: string;
+  type: string;
+  size: number;
+  count: number;
+  price: number;
+};
+type CartState = {
+  cart: {
+    totalPrice: number;
+    totalCount: number;
+    items: {
+      [id: string]: CartItem[];
+    };
+  };
+};
+
+const Cart = (): React.ReactNode => {
+  const { totalPrice, totalCount, items } = useSelector((state: CartState) => state.cart);
   const dispatch = useDispatch();
 
-  const handleAddItem = (id, item) => {
+  const handleAddItem = (id: string, item: {}) => {
+    console.log(item);
+
     dispatch(addItem({ id, ...item }));
   };
 
-  const handleRemoveItem = (id, item) => {
+  const handleRemoveItem = (id: string, item: {}) => {
     dispatch(removeItem({ id, ...item }));
   };
-  const getPrice = (id) => {
-    return items[id].reduce((acc, item) => (acc += item.count * item.price), 0);
+  const getPrice = (id: string) => {
+    return items[id].reduce(
+      (acc: number, item: { count: number; price: number }) => (acc += item.count * item.price),
+      0,
+    );
   };
 
   const renderCartItems = () => {
@@ -26,7 +49,7 @@ const Cart = () => {
 
     return itemsArray.map(
       ([id, items]) =>
-        items[0] && (
+        Object.keys(items).length && (
           <div className="cart__item" key={id}>
             <div className="cart__image">
               <img src={items[0].imageUrl} alt={items[0].title} />

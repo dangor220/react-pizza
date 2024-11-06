@@ -6,7 +6,16 @@ import pizzaLogo from '../assets/images/icons/pizza.svg';
 
 export default function Header() {
   const dispatch = useDispatch();
-  const { totalPrice, items } = useSelector((store) => store.cart);
+  const { totalPrice, items } = useSelector(
+    (store: {
+      cart: {
+        totalPrice: number;
+        items: {
+          length: number;
+        };
+      };
+    }) => store.cart,
+  );
 
   const { pathname } = useLocation();
 

@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { setActiveSort, setAscendSort } from '../redux/slices/filterSlice';
 
@@ -8,13 +8,15 @@ export const sortBy = [
   { name: 'алфавиту', sort: 'title' },
 ];
 
-export default function Sort({ activeSort, ascendSort }) {
+type SortProps = { activeSort: { name: string }; ascendSort: boolean };
+
+export default function Sort({ activeSort, ascendSort }: SortProps): React.ReactNode {
   const [popupIsOpen, setPopupIsOpen] = useState(false);
-  const sortRef = useRef();
+  const sortRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (!e.composedPath().includes(sortRef.current)) {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (sortRef.current && !e.composedPath().includes(sortRef.current)) {
         setPopupIsOpen(false);
       }
     };
@@ -26,7 +28,7 @@ export default function Sort({ activeSort, ascendSort }) {
 
   const dispatch = useDispatch();
 
-  const onClickSortType = (type) => {
+  const onClickSortType = (type: { name: string; sort: string }) => {
     dispatch(setActiveSort(type));
     setPopupIsOpen(false);
   };
