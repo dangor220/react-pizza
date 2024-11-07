@@ -4,7 +4,7 @@ import styles from './Pagination.module.scss';
 type PaginationProps = {
   paginationCount: number;
   selectedPage: number;
-  setSelectedPage: any;
+  setSelectedPage: (page: number) => void;
 };
 
 export default function Pagination({

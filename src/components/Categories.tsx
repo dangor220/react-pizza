@@ -13,7 +13,7 @@ export default function Categories({ activeCategory }: ActiveCategoryProps): Rea
 
   const categories: string[] = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые'];
 
-  const handleClickBurger = () => {
+  const handleClickBurger = (): void => {
     const userView: boolean = window.innerWidth <= 568;
     if (userView) {
       setIsListOpen(!isListOpen);

@@ -8,8 +8,8 @@ type PizzaSelectorProps = {
   sizes: number[];
   activeType: number;
   activeSize: number;
-  handleSelectType?: any;
-  handleSelectSize?: any;
+  handleSelectType?: (typeID: number) => void;
+  handleSelectSize?: (sizeID: number) => void;
 };
 
 export default function PizzaSelector({

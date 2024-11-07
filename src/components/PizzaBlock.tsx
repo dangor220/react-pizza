@@ -73,7 +73,7 @@ export default function PizzaBlock({
     }
   };
 
-  const onClickAdd = () => {
+  const onClickAdd = (): void => {
     const item = {
       id,
       imageUrl,

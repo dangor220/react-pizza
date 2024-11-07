@@ -20,13 +20,34 @@ type PizzaState = {
       types: number[];
       sizes: number[];
     };
-    pizzaProps: any;
+    pizzaProps: {
+      [id: number | string]: {
+        activeSize: number;
+        activeType: number;
+        resultPrice: number;
+      };
+    };
     pizzaStatus: 'loading' | 'succeeded' | 'error';
     status: 'loading' | 'succeeded' | 'error';
     error: string | null;
     totalPages: number;
     pizzaTypes: string[];
     pizzaSizes: number[];
+  };
+};
+type CartProps = {
+  imageUrl: string;
+  title: string;
+  price: number;
+  type: string;
+  size: number;
+  count: number;
+};
+type CurrentPizzaProps = {
+  cart: {
+    items: {
+      [id: number | string]: CartProps[];
+    };
   };
 };
 
@@ -41,7 +62,7 @@ export default function PizzaCard(): React.ReactNode {
   if (!id) {
     return <>Загрузка...</>;
   }
-  const currentPizza = useSelector((state: any) => state.cart.items[id]);
+  const currentPizza = useSelector((state: CurrentPizzaProps) => state.cart.items[id]);
 
   useEffect(() => {
     dispatch(fetchPizza(id));
@@ -60,11 +81,8 @@ export default function PizzaCard(): React.ReactNode {
     dispatch(addItem(item));
   };
 
-  const getCount = () => {
-    if (currentPizza) {
-      return currentPizza.reduce((sum: number, item: { count: number }) => (sum += item.count), 0);
-    }
-  };
+  const getCount = () =>
+    currentPizza.reduce((sum: number, item: { count: number }) => (sum += item.count), 0);
 
   if (pizzaStatus === 'error') {
     alert(`Ошибка получения данных! ${error} Вернуться на страницу.`);
@@ -82,7 +100,7 @@ export default function PizzaCard(): React.ReactNode {
           <h2 className="pizza__title">{pizzaItem.title}</h2>
           <p className="pizza__description">{pizzaItem.description}</p>
           <PizzaSelector
-            id={id}
+            id={+id}
             types={pizzaItem.types}
             sizes={pizzaItem.sizes}
             activeSize={pizzaProps[id].activeSize}
@@ -121,7 +139,7 @@ export default function PizzaCard(): React.ReactNode {
                 />
               </svg>
               <span>Добавить</span>
-              {getCount() > 0 && <i>{getCount()}</i>}
+              {currentPizza.length && <i>{getCount()}</i>}
             </div>
           </div>
         </div>

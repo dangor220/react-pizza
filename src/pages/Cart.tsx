@@ -7,6 +7,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { CartEmpty } from '../components/CartEmpty';
 
 type CartItem = {
+  id: number;
   imageUrl: string;
   title: string;
   type: string;
@@ -19,7 +20,7 @@ type CartState = {
     totalPrice: number;
     totalCount: number;
     items: {
-      [id: string]: CartItem[];
+      [id: number]: CartItem[];
     };
   };
 };
@@ -28,16 +29,14 @@ const Cart = (): React.ReactNode => {
   const { totalPrice, totalCount, items } = useSelector((state: CartState) => state.cart);
   const dispatch = useDispatch();
 
-  const handleAddItem = (id: string, item: {}) => {
-    console.log(item);
-
-    dispatch(addItem({ id, ...item }));
+  const handleAddItem = (id: number, item: {}) => {
+    dispatch(addItem({ id, ...item } as CartItem));
   };
 
-  const handleRemoveItem = (id: string, item: {}) => {
-    dispatch(removeItem({ id, ...item }));
+  const handleRemoveItem = (id: number, item: {}) => {
+    dispatch(removeItem({ id, ...item } as CartItem));
   };
-  const getPrice = (id: string) => {
+  const getPrice = (id: number) => {
     return items[id].reduce(
       (acc: number, item: { count: number; price: number }) => (acc += item.count * item.price),
       0,
@@ -63,11 +62,11 @@ const Cart = (): React.ReactNode => {
                   <div className="cart__control">
                     <button
                       className="cart__control-rem"
-                      onClick={() => handleRemoveItem(id, item)}>
+                      onClick={() => handleRemoveItem(+id, item)}>
                       -
                     </button>
                     <div className="cart__control-count">{item.count}</div>
-                    <button className="cart__control-add" onClick={() => handleAddItem(id, item)}>
+                    <button className="cart__control-add" onClick={() => handleAddItem(+id, item)}>
                       +
                     </button>
                   </div>
@@ -75,11 +74,11 @@ const Cart = (): React.ReactNode => {
               ))}
             </ul>
 
-            <div className="cart__price">{getPrice(id)} ₽</div>
+            <div className="cart__price">{getPrice(+id)} ₽</div>
             <button
               className="cart__remove"
               onClick={() => {
-                dispatch(removeItemById(id));
+                dispatch(removeItemById(+id));
               }}>
               <svg
                 width="32"
