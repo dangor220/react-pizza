@@ -1,0 +1,60 @@
+.pizza {
+  &__info {
+    width: 100%;
+    .pizza-block {
+      &__selector {
+        ul li {
+          padding: 13px;
+          @media (max-width: 1024px) {
+            padding: 13px;
+          }
+        }
+      }
+    }
+  }
+  &__card {
+    display: flex;
+    gap: 30px;
+    @media (max-width: 1024px) {
+      gap: 20px;
+    }
+    @media (max-width: 680px) {
+      flex-direction: column;
+    }
+  }
+  &__image {
+    display: flex;
+    align-items: center;
+    img {
+      width: 310px;
+
+      @media (max-width: 1024px) {
+        width: 290px;
+      }
+      @media (max-width: 768px) {
+        width: 230px;
+      }
+    }
+    @media (max-width: 680px) {
+      justify-content: center;
+    }
+    @media (max-width: 680px) {
+      transform: translateX(8px);
+    }
+  }
+  &__title {
+    margin-bottom: 20px;
+    @media (max-width: 680px) {
+      text-align: center;
+    }
+  }
+  &__description {
+    font-size: 18px;
+    margin-bottom: 100px;
+
+    @media (max-width: 768px) {
+      font-size: 16px;
+      margin-bottom: 50px;
+    }
+  }
+}

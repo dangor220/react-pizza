@@ -5,8 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addItem } from '../redux/slices/cartSlice';
 import PizzaSelector from './PizzaSelector';
 import { AppDispatch } from '../redux/store';
-
-// TODO: Skeleton and layout
+import { BackButton } from './BackButton';
+import PizzaCardSkeleton from './PizzaCardSkeleton';
 
 type PizzaState = {
   pizza: {
@@ -27,8 +27,8 @@ type PizzaState = {
         resultPrice: number;
       };
     };
-    pizzaStatus: 'loading' | 'succeeded' | 'error';
-    status: 'loading' | 'succeeded' | 'error';
+    pizzaStatus: 'loading' | 'success' | 'error';
+    status: 'loading' | 'success' | 'error';
     error: string | null;
     totalPages: number;
     pizzaTypes: string[];
@@ -89,9 +89,8 @@ export default function PizzaCard(): React.ReactNode {
     navigate('/');
   }
 
-  return (
-    pizzaItem.id == Number(id) &&
-    pizzaProps[id] && (
+  return pizzaStatus === 'success' ? (
+    <>
       <div className="pizza__card">
         <div className="pizza__image">
           <img src={pizzaItem.imageUrl} alt={pizzaItem.title} />
@@ -144,6 +143,11 @@ export default function PizzaCard(): React.ReactNode {
           </div>
         </div>
       </div>
-    )
+      <div className="cart__bottom-buttons">
+        <BackButton />
+      </div>
+    </>
+  ) : (
+    <PizzaCardSkeleton />
   );
 }
