@@ -1,21 +1,21 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-type CartItem = {
+export type CartItem = {
   id: number;
   imageUrl: string;
   title: string;
   price: number;
   type: string;
   size: number;
-  count: number;
-}
+  count?: number;
+};
 
 interface InitialStateProps {
-  totalCount: number,
-  totalPrice: number,
+  totalCount: number;
+  totalPrice: number;
   items: {
-    [id: number]: CartItem[]
-  },
+    [id: number]: CartItem[];
+  };
 }
 
 const initialState: InitialStateProps = {
@@ -30,12 +30,11 @@ export const cartSlice = createSlice({
   reducers: {
     addItem(state, action: PayloadAction<CartItem>) {
       const { id, ...props } = action.payload;
-      
 
       if (state.items[id]) {
         let added = false;
         state.items[id].forEach((item) => {
-          if (item.type === props.type && item.size === props.size) {
+          if (item.type === props.type && item.size === props.size && item.count) {
             item.count++;
             added = true;
           }
@@ -64,7 +63,7 @@ export const cartSlice = createSlice({
 
             state.items[id].length === 0 && delete state.items[id];
           }
-          if (isCurrentItem) {
+          if (isCurrentItem && item.count) {
             item.count--;
           }
         });
@@ -75,8 +74,10 @@ export const cartSlice = createSlice({
     },
     removeItemById(state, action: PayloadAction<number>) {
       state.items[action.payload].forEach((item) => {
-        state.totalCount -= item.count;
-        state.totalPrice -= item.price * item.count;
+        if (item.count) {
+          state.totalCount -= item.count;
+          state.totalPrice -= item.price * item.count;
+        }
       });
       delete state.items[action.payload];
     },

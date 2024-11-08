@@ -1,14 +1,16 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { setActiveSort, setAscendSort } from '../redux/slices/filterSlice';
+import { ActiveSortProps, setActiveSort, setAscendSort } from '../redux/slices/filterSlice';
 
-export const sortBy = [
+type SortByProps = ActiveSortProps[];
+
+export const sortBy: SortByProps = [
   { name: 'популярности', sort: 'rating' },
   { name: 'цене', sort: 'price' },
   { name: 'алфавиту', sort: 'title' },
 ];
 
-type SortProps = { activeSort: { name: string }; ascendSort: boolean };
+type SortProps = { activeSort: ActiveSortProps; ascendSort: boolean };
 
 export default function Sort({ activeSort, ascendSort }: SortProps): React.ReactNode {
   const [popupIsOpen, setPopupIsOpen] = useState(false);
@@ -28,7 +30,7 @@ export default function Sort({ activeSort, ascendSort }: SortProps): React.React
 
   const dispatch = useDispatch();
 
-  const onClickSortType = (type: { name: string; sort: string }) => {
+  const onClickSortType = (type: ActiveSortProps) => {
     dispatch(setActiveSort(type));
     setPopupIsOpen(false);
   };

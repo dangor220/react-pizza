@@ -1,8 +1,13 @@
 import React, { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { useDispatch, useSelector } from 'react-redux';
-import { setSelectedPage, setFilter } from '../redux/slices/filterSlice';
+import { useSelector } from 'react-redux';
+import {
+  setSelectedPage,
+  setFilter,
+  ActiveSortProps,
+  FilterSortProps,
+} from '../redux/slices/filterSlice';
 import { fetchPizzas } from '../redux/slices/pizzaSlice';
 
 import qs from 'qs';
@@ -13,14 +18,12 @@ import PizzaBlock from '../components/PizzaBlock';
 import PizzaSkeleton from '../components/PizzaSkeleton';
 import Pagination from '../components/Pagination';
 import NotFound from '../components/NotFound';
+import { useAppDispatch } from '../redux/store';
 
 type FilterStore = {
   filter: {
     activeCategory: number;
-    activeSort: {
-      name: string;
-      sort: string;
-    };
+    activeSort: ActiveSortProps;
     ascendSort: boolean;
     selectedPage: number;
     visiblePizzas: number;
@@ -53,7 +56,7 @@ export default function Home(): React.ReactNode {
 
   const navigate = useNavigate();
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const pizzasData = useSelector((store: PizzaDataProps) => store.pizza);
   const { activeCategory, activeSort, ascendSort, selectedPage, visiblePizzas, searchValue } =
     useSelector((store: FilterStore) => store.filter);
@@ -62,7 +65,7 @@ export default function Home(): React.ReactNode {
     if (window.location.search) {
       const params: qs.ParsedQs = qs.parse(window.location.search.substring(1));
 
-      let sortBy: { name: string; sort: string } | undefined;
+      let sortBy: ActiveSortProps | undefined;
 
       if (params.sortBy[0] === '-') {
         sortBy = sortData.find((obj) => obj.sort === params.sortBy.substring(1));
@@ -74,7 +77,7 @@ export default function Home(): React.ReactNode {
       }
 
       isSearch.current = true;
-      dispatch(setFilter({ ...params, sortBy }));
+      dispatch(setFilter({ ...params, sortBy } as FilterSortProps));
     }
   }, []);
 
@@ -96,7 +99,6 @@ export default function Home(): React.ReactNode {
   useEffect(() => {
     if (!isSearch.current) {
       dispatch(
-        //@ts-ignore
         fetchPizzas({
           activeCategory,
           activeSort,

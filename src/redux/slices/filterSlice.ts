@@ -1,6 +1,29 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-const initialState = {
+export type ActiveSortProps = {
+  name: string;
+  sort: 'rating' | 'price' | 'title';
+};
+
+export type FilterSortProps = {
+  page: string;
+  limit: string;
+  sortBy: ActiveSortProps;
+  category: string;
+  title: string;
+  ascendSort: boolean;
+};
+
+interface InitialStateProps {
+  activeCategory: number;
+  activeSort: ActiveSortProps;
+  ascendSort: boolean;
+  selectedPage: number;
+  visiblePizzas: number;
+  searchValue: string;
+}
+
+const initialState: InitialStateProps = {
   activeCategory: 0,
   activeSort: {
     name: 'популярности',
@@ -16,26 +39,26 @@ export const filterSlice = createSlice({
   name: 'filters',
   initialState,
   reducers: {
-    setActiveCategory(store, action) {
+    setActiveCategory(store, action: PayloadAction<number>) {
       store.activeCategory = action.payload;
     },
-    setActiveSort(store, action) {
+    setActiveSort(store, action: PayloadAction<ActiveSortProps>) {
       store.activeSort = action.payload;
     },
     setAscendSort(store) {
       store.ascendSort = !store.ascendSort;
     },
-    setSelectedPage(store, action) {
+    setSelectedPage(store, action: PayloadAction<number>) {
       store.selectedPage = action.payload;
     },
-    setFilter(store, action) {
+    setFilter(store, action: PayloadAction<FilterSortProps>) {
       store.selectedPage = Number(action.payload.page);
       store.visiblePizzas = Number(action.payload.limit);
       store.activeCategory = Number(action.payload.category);
       store.activeSort = action.payload.sortBy;
       store.ascendSort = action.payload.ascendSort;
     },
-    setSearchValue(store, action) {
+    setSearchValue(store, action: PayloadAction<string>) {
       store.searchValue = action.payload;
       store.selectedPage = 1;
     },
@@ -51,7 +74,6 @@ export const {
   setActiveSort,
   setAscendSort,
   setSelectedPage,
-  setVisiblePizzas,
   setFilter,
   setSearchValue,
   clearSearchValue,

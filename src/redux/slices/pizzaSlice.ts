@@ -1,40 +1,103 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
+enum Status {
+  LOADING = 'loading',
+  SUCCESS = 'success',
+  ERROR = 'error',
+}
 
-const initialState = {
+type PizzaItemProps = {
+  id: number;
+  imageUrl: string;
+  title: string;
+  description: string;
+  types: number[];
+  sizes: number[];
+  price: number[];
+  category: number;
+  rating: number;
+};
+interface InitialStateProps {
+  items: PizzaItemProps[];
+  pizzaItem: PizzaItemProps | {};
+  pizzaProps: {
+    [id: number]: {
+      activeSize: number;
+      activeType: number;
+      resultPrice: number;
+    };
+  };
+  pizzaStatus: Status;
+  status: Status;
+  error: string | undefined;
+  totalPages: number;
+  pizzaTypes: string[];
+  pizzaSizes: number[];
+}
+
+const initialState: InitialStateProps = {
   items: [],
   pizzaItem: {},
   pizzaProps: {},
-  pizzaStatus: 'loading',
-  status: 'loading',
+  pizzaStatus: Status.LOADING,
+  status: Status.LOADING,
   error: '',
   totalPages: 1,
   pizzaTypes: ['тонкое', 'традиционное', 'другое'],
   pizzaSizes: [26, 30, 40],
 };
 
-export const fetchPizzas = createAsyncThunk('pizza/fetchPizzas', async (props) => {
-  const { activeCategory, activeSort, selectedPage, visiblePizzas, ascendSort, searchValue } =
-    props;
+type FetchPizzasProps = {
+  activeCategory: number;
+  activeSort: { name: string; sort: string };
+  selectedPage: number;
+  visiblePizzas: number;
+  ascendSort: boolean;
+  searchValue: string;
+};
+type PizzaDataProps = {
+  meta: {
+    current_page: number;
+    per_page: number;
+    remaining_count: number;
+    total_items: number;
+    total_pages: number;
+  };
+  items: PizzaItemProps[];
+};
 
-  let url =
-    activeCategory === 0
-      ? `https://91819ac0547a360f.mokky.dev/items?page=${selectedPage}&limit=${visiblePizzas}&sortBy=${
-          ascendSort ? '' : '-'
-        }${activeSort.sort}&title=*${searchValue}`
-      : `https://91819ac0547a360f.mokky.dev/items?page=${selectedPage}&limit=${visiblePizzas}&sortBy=${
-          ascendSort ? '' : '-'
-        }${activeSort.sort}&category=${activeCategory}&title=*${searchValue}`;
+export const fetchPizzas = createAsyncThunk(
+  'pizza/fetchPizzas',
+  async (props: FetchPizzasProps) => {
+    const { activeCategory, activeSort, selectedPage, visiblePizzas, ascendSort, searchValue } =
+      props;
 
-  const { data } = await axios.get(url);
-  return data;
-});
+    let url =
+      activeCategory === 0
+        ? `https://91819ac0547a360f.mokky.dev/items?page=${selectedPage}&limit=${visiblePizzas}&sortBy=${
+            ascendSort ? '' : '-'
+          }${activeSort.sort}&title=*${searchValue}`
+        : `https://91819ac0547a360f.mokky.dev/items?page=${selectedPage}&limit=${visiblePizzas}&sortBy=${
+            ascendSort ? '' : '-'
+          }${activeSort.sort}&category=${activeCategory}&title=*${searchValue}`;
 
-export const fetchPizza = createAsyncThunk('pizza/fetchPizza', async (pizzaID: string | undefined) => {
-  const { data } = await axios.get(`https://91819ac0547a360f.mokky.dev/items/${pizzaID}`);
-  return data;
-});
+    const { data } = await axios.get<PizzaDataProps>(url);
+
+    return data as PizzaDataProps;
+  },
+);
+
+export const fetchPizza = createAsyncThunk(
+  'pizza/fetchPizza',
+  async (pizzaID: string | undefined) => {
+    const { data } = await axios.get<PizzaItemProps>(
+      `https://91819ac0547a360f.mokky.dev/items/${pizzaID}`,
+    );
+
+    return data as PizzaItemProps;
+  },
+);
 
 export const pizzaSlice = createSlice({
   name: 'pizza',
@@ -76,11 +139,11 @@ export const pizzaSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(fetchPizzas.pending, (state) => {
-      state.status = 'loading';
+      state.status = Status.LOADING;
       state.items = [];
     });
     builder.addCase(fetchPizzas.fulfilled, (state, action) => {
-      state.status = 'success';
+      state.status = Status.SUCCESS;
       state.items = action.payload.items;
       state.totalPages = action.payload.meta.total_pages || 1;
       action.payload.items.forEach((item) => {
@@ -92,11 +155,11 @@ export const pizzaSlice = createSlice({
       });
     });
     builder.addCase(fetchPizzas.rejected, (state) => {
-      state.status = 'error';
+      state.status = Status.ERROR;
       state.items = [];
     });
     builder.addCase(fetchPizza.pending, (state) => {
-      state.pizzaStatus = 'loading';
+      state.pizzaStatus = Status.LOADING;
       state.pizzaItem = {};
     });
     builder.addCase(fetchPizza.fulfilled, (state, action) => {
@@ -107,10 +170,10 @@ export const pizzaSlice = createSlice({
         resultPrice: action.payload.price[0],
       };
 
-      state.pizzaStatus = 'success';
+      state.pizzaStatus = Status.SUCCESS;
     });
     builder.addCase(fetchPizza.rejected, (state, action) => {
-      state.pizzaStatus = 'error';
+      state.pizzaStatus = Status.ERROR;
       state.error = action.error.message;
       state.pizzaItem = {};
     });

@@ -139,7 +139,7 @@ export default function PizzaCard(): React.ReactNode {
                 />
               </svg>
               <span>Добавить</span>
-              {currentPizza.length && <i>{getCount()}</i>}
+              {currentPizza?.length && <i>{getCount()}</i>}
             </div>
           </div>
         </div>

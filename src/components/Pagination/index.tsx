@@ -24,16 +24,13 @@ export default function Pagination({
         </li>
       );
     }
-    const delta = window.innerWidth <= 478 ? 1 : 2; // Количество видимых страниц рядом с выбранной
+    const delta = window.innerWidth <= 478 ? 1 : 2;
 
     if (paginationCount > 1) {
-      // Всегда показываем первую и последнюю страницы
       const range = {
         start: Math.max(2, selectedPage - delta),
         end: Math.min(paginationCount - 1, selectedPage + delta),
       };
-
-      // Первая страница
       pages.push(
         <li
           key="first-page"
@@ -42,8 +39,6 @@ export default function Pagination({
           1
         </li>,
       );
-
-      // Троеточие перед серединой
       if (range.start > 2) {
         pages.push(
           <li key="start-ellipsis" className={styles.ellipsis}>
@@ -51,20 +46,16 @@ export default function Pagination({
           </li>,
         );
       }
-
-      // Страницы в середине
       for (let i = range.start; i <= range.end; i++) {
         pages.push(
           <li
-            key={`page-${i}`} // Уникальный ключ для каждой страницы
+            key={`page-${i}`}
             className={selectedPage === i ? `${styles.item} ${styles.selected}` : styles.item}
             onClick={() => setSelectedPage(i)}>
             {i}
           </li>,
         );
       }
-
-      // Троеточие после серединной группы
       if (range.end < paginationCount - 1) {
         pages.push(
           <li key="end-ellipsis" className={styles.ellipsis}>
@@ -73,7 +64,6 @@ export default function Pagination({
         );
       }
 
-      // Последняя страница
       pages.push(
         <li
           key="last-page"
