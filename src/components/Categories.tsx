@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { setActiveCategory, setSelectedPage } from '../redux/slices/filterSlice';
 import { useDispatch } from 'react-redux';
 
@@ -6,7 +6,9 @@ type ActiveCategoryProps = {
   activeCategory: number;
 };
 
-export default function Categories({ activeCategory }: ActiveCategoryProps): React.ReactNode {
+export default React.memo(function Categories({
+  activeCategory,
+}: ActiveCategoryProps): React.ReactNode {
   const [isListOpen, setIsListOpen] = useState(false);
 
   const dispatch = useDispatch();
@@ -19,6 +21,10 @@ export default function Categories({ activeCategory }: ActiveCategoryProps): Rea
       setIsListOpen(!isListOpen);
     }
   };
+  const onChangeCategory = useCallback((categoryID: number) => {
+    dispatch(setSelectedPage(1));
+    dispatch(setActiveCategory(categoryID));
+  }, []);
 
   return (
     <div
@@ -29,8 +35,7 @@ export default function Categories({ activeCategory }: ActiveCategoryProps): Rea
           <li
             className={activeCategory === categoryID ? 'active' : ''}
             onClick={() => {
-              dispatch(setSelectedPage(1));
-              dispatch(setActiveCategory(categoryID));
+              onChangeCategory(categoryID);
             }}
             key={categoryID}>
             {category}
@@ -39,4 +44,4 @@ export default function Categories({ activeCategory }: ActiveCategoryProps): Rea
       </ul>
     </div>
   );
-}
+});

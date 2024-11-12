@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import getCartData from '../../utils/getCartData';
 
 export type CartItem = {
   id: number;
@@ -7,22 +8,20 @@ export type CartItem = {
   price: number;
   type: string;
   size: number;
-  count?: number;
+  count: number;
 };
 
-interface InitialStateProps {
+export type CartItems = {
+  [id: number]: CartItem[];
+};
+
+export interface InitialStateProps {
   totalCount: number;
   totalPrice: number;
-  items: {
-    [id: number]: CartItem[];
-  };
+  items: CartItems;
 }
 
-const initialState: InitialStateProps = {
-  totalCount: 0,
-  totalPrice: 0,
-  items: {},
-};
+const initialState: InitialStateProps = getCartData();
 
 export const cartSlice = createSlice({
   name: 'cart',

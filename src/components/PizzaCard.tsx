@@ -76,6 +76,7 @@ export default function PizzaCard(): React.ReactNode {
       price: pizzaProps[id].resultPrice,
       type: pizzaTypes[pizzaProps[id].activeType],
       size: pizzaSizes[pizzaProps[id].activeSize],
+      count: 1,
     };
 
     dispatch(addItem(item));

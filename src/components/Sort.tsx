@@ -12,7 +12,7 @@ export const sortBy: SortByProps = [
 
 type SortProps = { activeSort: ActiveSortProps; ascendSort: boolean };
 
-export default function Sort({ activeSort, ascendSort }: SortProps): React.ReactNode {
+export default React.memo(function Sort({ activeSort, ascendSort }: SortProps): React.ReactNode {
   const [popupIsOpen, setPopupIsOpen] = useState(false);
   const sortRef = useRef<HTMLDivElement>(null);
 
@@ -92,4 +92,4 @@ export default function Sort({ activeSort, ascendSort }: SortProps): React.React
       )}
     </div>
   );
-}
+});

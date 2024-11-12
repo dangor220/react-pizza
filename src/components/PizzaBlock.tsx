@@ -81,6 +81,7 @@ export default function PizzaBlock({
       price: resultPrice,
       type: pizzaTypes[activeType],
       size: pizzaSizes[activeSize],
+      count: 1,
     };
 
     dispatch(addItem(item));
