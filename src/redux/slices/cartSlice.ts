@@ -15,13 +15,13 @@ export type CartItems = {
   [id: number]: CartItem[];
 };
 
-export interface InitialStateProps {
+export interface InitialCartProps {
   totalCount: number;
   totalPrice: number;
   items: CartItems;
 }
 
-const initialState: InitialStateProps = getCartData();
+const initialState: InitialCartProps = getCartData();
 
 export const cartSlice = createSlice({
   name: 'cart',

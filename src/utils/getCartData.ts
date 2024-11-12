@@ -1,6 +1,6 @@
-import { CartItems, InitialStateProps } from '../redux/slices/cartSlice';
+import { CartItems, InitialCartProps } from '../redux/slices/cartSlice';
 
-export default function getCartData(): InitialStateProps {
+export default function getCartData(): InitialCartProps {
   let data = localStorage.getItem('cart');
 
   if (!data) {

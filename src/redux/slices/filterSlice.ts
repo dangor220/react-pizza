@@ -14,7 +14,7 @@ export type FilterSortProps = {
   ascendSort: boolean;
 };
 
-interface InitialStateProps {
+interface InitialFilterProps {
   activeCategory: number;
   activeSort: ActiveSortProps;
   ascendSort: boolean;
@@ -23,7 +23,7 @@ interface InitialStateProps {
   searchValue: string;
 }
 
-const initialState: InitialStateProps = {
+const initialState: InitialFilterProps = {
   activeCategory: 0,
   activeSort: {
     name: 'популярности',

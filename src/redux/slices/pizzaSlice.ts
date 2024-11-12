@@ -18,7 +18,7 @@ type PizzaItemProps = {
   category: number;
   rating: number;
 };
-export interface InitialStateProps {
+export interface InitialPizzaProps {
   items: PizzaItemProps[];
   pizzaItem: PizzaItemProps | {};
   pizzaProps: {
@@ -36,7 +36,7 @@ export interface InitialStateProps {
   pizzaSizes: number[];
 }
 
-const initialState: InitialStateProps = {
+const initialState: InitialPizzaProps = {
   items: [],
   pizzaItem: {},
   pizzaProps: {},
