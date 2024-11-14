@@ -46,7 +46,7 @@ const router = createBrowserRouter(
       ],
     },
   ],
-  { basename: '/react-pizza/' },
+  { basename: '/react-pizza' },
 );
 
 createRoot(document.getElementById('root') as HTMLElement).render(
