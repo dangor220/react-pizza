@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addItem } from '../redux/slices/cartSlice.js';
-import { setResultPrice } from '../redux/slices/pizzaSlice.js';
+import { addItem } from '../redux/slices/cart/slice';
+import { setResultPrice } from '../redux/slices/pizza/slice';
 import { useNavigate } from 'react-router-dom';
-import PizzaSelector from './PizzaSelector.jsx';
+import PizzaSelector from './PizzaSelector.tsx';
 
 type PizzaBlockProps = {
   id: number;

@@ -1,27 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
-export type ActiveSortProps = {
-  name: string;
-  sort: 'rating' | 'price' | 'title';
-};
-
-export type FilterSortProps = {
-  page: string;
-  limit: string;
-  sortBy: ActiveSortProps;
-  category: string;
-  title: string;
-  ascendSort: boolean;
-};
-
-interface InitialFilterProps {
-  activeCategory: number;
-  activeSort: ActiveSortProps;
-  ascendSort: boolean;
-  selectedPage: number;
-  visiblePizzas: number;
-  searchValue: string;
-}
+import { ActiveSortProps, FilterSortProps, InitialFilterProps } from './types';
 
 const initialState: InitialFilterProps = {
   activeCategory: 0,

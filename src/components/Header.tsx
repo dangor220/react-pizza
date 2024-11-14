@@ -1,7 +1,7 @@
 import { Link, useLocation } from 'react-router-dom';
 import Search from './Search';
 import { useDispatch, useSelector } from 'react-redux';
-import { setActiveCategory, setSelectedPage } from '../redux/slices/filterSlice';
+import { setActiveCategory, setSelectedPage } from '../redux/slices/filter/slice';
 import pizzaLogo from '../assets/images/icons/pizza.svg';
 import { useEffect, useRef } from 'react';
 

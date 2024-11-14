@@ -1,12 +1,13 @@
 import React, { useEffect } from 'react';
-import { fetchPizza, setResultPrice } from '../redux/slices/pizzaSlice';
+import { setResultPrice } from '../redux/slices/pizza/slice';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { addItem } from '../redux/slices/cartSlice';
+import { addItem } from '../redux/slices/cart/slice';
 import PizzaSelector from './PizzaSelector';
 import { AppDispatch } from '../redux/store';
 import { BackButton } from './BackButton';
 import PizzaCardSkeleton from './PizzaCardSkeleton';
+import { fetchPizza } from '../redux/slices/pizza/asyncActions';
 
 type PizzaState = {
   pizza: {

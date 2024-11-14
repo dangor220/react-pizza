@@ -2,13 +2,9 @@ import React, { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useSelector } from 'react-redux';
-import {
-  setSelectedPage,
-  setFilter,
-  ActiveSortProps,
-  FilterSortProps,
-} from '../redux/slices/filterSlice';
-import { fetchPizzas } from '../redux/slices/pizzaSlice';
+import { setSelectedPage, setFilter } from '../redux/slices/filter/slice';
+import { fetchPizzas } from '../redux/slices/pizza/asyncActions';
+import { ActiveSortProps, FilterSortProps } from '../redux/slices/filter/types';
 
 import qs from 'qs';
 

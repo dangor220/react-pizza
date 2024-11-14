@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import { setActiveCategory, setSelectedPage } from '../redux/slices/filterSlice';
+import { setActiveCategory, setSelectedPage } from '../redux/slices/filter/slice';
 import { useDispatch } from 'react-redux';
 
 type ActiveCategoryProps = {

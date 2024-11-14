@@ -1,7 +1,7 @@
 import { useCallback, useRef, useState } from 'react';
 
 import { useDispatch } from 'react-redux';
-import { clearSearchValue, setSearchValue } from '../../redux/slices/filterSlice';
+import { clearSearchValue, setSearchValue } from '../../redux/slices/filter/slice';
 
 import styles from './Search.module.scss';
 

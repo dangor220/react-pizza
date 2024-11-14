@@ -1,4 +1,4 @@
-import { CartItems, InitialCartProps } from '../redux/slices/cartSlice';
+import { CartItems, InitialCartProps } from '../redux/slices/cart/types';
 
 export default function getCartData(): InitialCartProps {
   let data = localStorage.getItem('cart');

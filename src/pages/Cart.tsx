@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addItem, clearItems, removeItem, removeItemById } from '../redux/slices/cartSlice';
+import { addItem, clearItems, removeItem, removeItemById } from '../redux/slices/cart/slice';
 
 import { v4 as uuidv4 } from 'uuid';
 import { CartEmpty } from '../components/CartEmpty';

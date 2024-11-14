@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { ActiveSortProps, setActiveSort, setAscendSort } from '../redux/slices/filterSlice';
+import { setActiveSort, setAscendSort } from '../redux/slices/filter/slice';
+import { ActiveSortProps } from '../redux/slices/filter/types';
 
 type SortByProps = ActiveSortProps[];
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { setActiveSize, setActiveType } from '../redux/slices/pizzaSlice';
+import { setActiveSize, setActiveType } from '../redux/slices/pizza/slice';
 import { useDispatch, useSelector } from 'react-redux';
 
 type PizzaSelectorProps = {
