@@ -1,3 +1,4 @@
+import { Suspense, lazy } from 'react';
 import { createRoot } from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
@@ -5,16 +6,21 @@ import { store } from './redux/store.ts';
 import { Provider } from 'react-redux';
 
 import App from './App.tsx';
-import ErrorPage from './pages/Error';
 import Home from './pages/Home';
-import Cart from './pages/Cart';
-import PizzaCard from './components/PizzaCard';
+
+const Cart = lazy(() => import(/* webpackChunkName: 'Cart' */ './pages/Cart'));
+const PizzaCard = lazy(() => import(/* webpackChunkName: 'PizzaCard' */ './components/PizzaCard'));
+const ErrorPage = lazy(() => import(/* webpackChunkName: 'ErrorPage' */ './pages/Error'));
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <App />,
-    errorElement: <ErrorPage />,
+    errorElement: (
+      <Suspense fallback={<div>Идет загрузка...</div>}>
+        <ErrorPage />
+      </Suspense>
+    ),
     children: [
       {
         path: '',
@@ -22,11 +28,19 @@ const router = createBrowserRouter([
       },
       {
         path: 'cart',
-        element: <Cart />,
+        element: (
+          <Suspense fallback={<div>Идет загрузка...</div>}>
+            <Cart />
+          </Suspense>
+        ),
       },
       {
         path: 'pizza/:id',
-        element: <PizzaCard />,
+        element: (
+          <Suspense fallback={<div>Идет загрузка...</div>}>
+            <PizzaCard />
+          </Suspense>
+        ),
       },
     ],
   },

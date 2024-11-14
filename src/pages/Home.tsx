@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import { setSelectedPage, setFilter } from '../redux/slices/filter/slice';
 import { fetchPizzas } from '../redux/slices/pizza/asyncActions';
 import { ActiveSortProps, FilterSortProps } from '../redux/slices/filter/types';
+import { useAppDispatch } from '../redux/store';
 
 import qs from 'qs';
 
@@ -14,7 +15,6 @@ import PizzaBlock from '../components/PizzaBlock';
 import PizzaSkeleton from '../components/PizzaSkeleton';
 import Pagination from '../components/Pagination';
 import NotFound from '../components/NotFound';
-import { useAppDispatch } from '../redux/store';
 
 type FilterStore = {
   filter: {
