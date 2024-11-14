@@ -17,7 +17,7 @@ export default function getCartData(): InitialCartProps {
 
   Object.values(cartData).forEach((items) => {
     totalPrice += items.reduce((acc, item) => (acc += item.price * item.count), 0);
-    totalCount += items.length;
+    totalCount += items.reduce((acc, item) => (acc += item.count), 0);
   });
 
   return {

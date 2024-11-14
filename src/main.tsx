@@ -27,7 +27,7 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: 'cart',
+        path: '/react-pizza/cart',
         element: (
           <Suspense fallback={<div>Идет загрузка...</div>}>
             <Cart />
