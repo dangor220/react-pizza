@@ -14,7 +14,7 @@ const ErrorPage = lazy(() => import(/* webpackChunkName: 'ErrorPage' */ './pages
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: '/react-pizza/',
     element: <App />,
     errorElement: (
       <Suspense fallback={<div>Идет загрузка...</div>}>
@@ -23,7 +23,7 @@ const router = createBrowserRouter([
     ),
     children: [
       {
-        path: '',
+        path: '/react-pizza/',
         element: <Home />,
       },
       {
