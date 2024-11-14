@@ -12,39 +12,42 @@ const Cart = lazy(() => import(/* webpackChunkName: 'Cart' */ './pages/Cart'));
 const PizzaCard = lazy(() => import(/* webpackChunkName: 'PizzaCard' */ './components/PizzaCard'));
 const ErrorPage = lazy(() => import(/* webpackChunkName: 'ErrorPage' */ './pages/Error'));
 
-const router = createBrowserRouter([
-  {
-    path: '/react-pizza/',
-    element: <App />,
-    errorElement: (
-      <Suspense fallback={<div>Идет загрузка...</div>}>
-        <ErrorPage />
-      </Suspense>
-    ),
-    children: [
-      {
-        path: '/react-pizza/',
-        element: <Home />,
-      },
-      {
-        path: '/react-pizza/cart',
-        element: (
-          <Suspense fallback={<div>Идет загрузка...</div>}>
-            <Cart />
-          </Suspense>
-        ),
-      },
-      {
-        path: 'pizza/:id',
-        element: (
-          <Suspense fallback={<div>Идет загрузка...</div>}>
-            <PizzaCard />
-          </Suspense>
-        ),
-      },
-    ],
-  },
-]);
+const router = createBrowserRouter(
+  [
+    {
+      path: '/',
+      element: <App />,
+      errorElement: (
+        <Suspense fallback={<div>Идет загрузка...</div>}>
+          <ErrorPage />
+        </Suspense>
+      ),
+      children: [
+        {
+          path: '',
+          element: <Home />,
+        },
+        {
+          path: 'cart',
+          element: (
+            <Suspense fallback={<div>Идет загрузка...</div>}>
+              <Cart />
+            </Suspense>
+          ),
+        },
+        {
+          path: 'pizza/:id',
+          element: (
+            <Suspense fallback={<div>Идет загрузка...</div>}>
+              <PizzaCard />
+            </Suspense>
+          ),
+        },
+      ],
+    },
+  ],
+  { basename: '/react-pizza/' },
+);
 
 createRoot(document.getElementById('root') as HTMLElement).render(
   <Provider store={store}>

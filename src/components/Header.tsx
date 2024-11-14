@@ -32,7 +32,7 @@ export default function Header() {
     <div className="header">
       <div className="container">
         <div className="header__info">
-          <Link to="/react-pizza/">
+          <Link to="/">
             <div
               className="header__logo"
               onClick={() => {
@@ -51,7 +51,7 @@ export default function Header() {
 
         <div className="header__cart">
           {pathname !== '/cart' && (
-            <Link to="/react-pizza/cart" className="button button--cart">
+            <Link to="/cart" className="button button--cart">
               <span>{totalPrice} ₽</span>
               <div className="button__delimiter"></div>
               <svg
