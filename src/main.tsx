@@ -1,6 +1,6 @@
 import { Suspense, lazy } from 'react';
 import { createRoot } from 'react-dom/client';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createHashRouter, RouterProvider } from 'react-router-dom';
 
 import { store } from './redux/store.ts';
 import { Provider } from 'react-redux';
@@ -12,7 +12,7 @@ const Cart = lazy(() => import(/* webpackChunkName: 'Cart' */ './pages/Cart'));
 const PizzaCard = lazy(() => import(/* webpackChunkName: 'PizzaCard' */ './components/PizzaCard'));
 const ErrorPage = lazy(() => import(/* webpackChunkName: 'ErrorPage' */ './pages/Error'));
 
-const router = createBrowserRouter(
+const router = createHashRouter(
   [
     {
       path: '/',
