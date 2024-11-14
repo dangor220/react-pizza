@@ -1,0 +1,1 @@
+import{i as e,j as r,N as s,L as a}from"./index-D0t3k7gc.js";function n(){const o=e();return console.error(o),r.jsxs("div",{id:"error-page",children:[r.jsx(s,{}),r.jsx(a,{className:"error-back",to:"/",children:"На главную"})]})}export{n as default};
