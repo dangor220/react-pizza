@@ -9,7 +9,7 @@
     "lint": "eslint .",
     "preview": "vite preview"
   },
-  "homepage": "https://dangor220.github.io/react-pizza",
+  "homepage": "https://dangor220.github.io/react-pizza/",
   "dependencies": {
     "@reduxjs/toolkit": "^2.3.0",
     "ahooks": "^3.8.1",
