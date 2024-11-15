@@ -12,8 +12,6 @@
   <p align="center">
     Pizza ordering website
     <br />
-    <br />
-    <br />
     <a href="https://dangor220.github.io/react-pizza/">View Demo</a>
   </p>
 </div>
@@ -114,13 +112,13 @@ Project Link: [https://github.com/dangor220/react-pizza](https://github.com/dang
 [React-url]: https://reactjs.org/
 [ReduxToolkit.js]: https://img.shields.io/badge/redux_toolkit-20242A?style=for-the-badge&logo=redux
 [ReduxToolkit-url]: https://redux-toolkit.js.org/
-[TypeScript.js]: https://img.shields.io/badge/Type_Script-20242A?style=for-the-badge&logo=typescript
+[TypeScript.js]: https://img.shields.io/badge/TypeScript-20242A?style=for-the-badge&logo=typescript
 [TypeScript-url]: https://www.typescriptlang.org/
 [ReactRouterV6.28.js]: https://img.shields.io/badge/react_router-20242A?style=for-the-badge&logo=reactrouter
 [ReactRouterV6.28-url]: https://reactrouter.com/en/main
 [Axios.js]: https://img.shields.io/badge/axios-20242A?style=for-the-badge&logo=axios
 [Axios-url]: https://axios-http.com/docs/intro
-[SCSS.js]: https://img.shields.io/badge/scss-20242A?style=for-the-badge&logo=scss
+[SCSS.js]: https://img.shields.io/badge/sass-20242A?style=for-the-badge&logo=sass
 [SCSS-url]: https://sass-lang.com/
 [CSS-Modules.js]: https://img.shields.io/badge/cssmodules-20242A?style=for-the-badge&logo=cssmodules
 [CSS-Modules-url]: https://create-react-app.dev/docs/adding-a-css-modules-stylesheet/
