@@ -11,5 +11,5 @@ export default defineConfig({
       },
     },
   },
-  base: '/react-pizza/',
+  base: '/react-pizza',
 });
