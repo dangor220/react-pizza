@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { useSelector } from 'react-redux';
 import { setSelectedPage, setFilter } from '../redux/slices/filter/slice';
@@ -51,6 +51,7 @@ export default function Home(): React.ReactNode {
   const isMounted = useRef<boolean>(false);
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   const dispatch = useAppDispatch();
   const pizzasData = useSelector((store: PizzaDataProps) => store.pizza);
@@ -58,8 +59,8 @@ export default function Home(): React.ReactNode {
     useSelector((store: FilterStore) => store.filter);
 
   useEffect(() => {
-    if (window.location.search) {
-      const params: qs.ParsedQs = qs.parse(window.location.search.substring(1));
+    if (location.search) {
+      const params: qs.ParsedQs = qs.parse(location.search.substring(1));
 
       let sortBy: ActiveSortProps | undefined;
 
