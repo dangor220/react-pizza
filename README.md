@@ -99,7 +99,7 @@ The main technologies used in the implementation of the project.
 
 ## Contact
 
-Your Name - [@dangor220](https://t.me/dangor220)
+Gordeev Danil Alexandrovich - [@dangor220](https://t.me/dangor220)
 
 Project Link: [https://github.com/dangor220/react-pizza](https://github.com/dangor220/react-pizza)
 
