@@ -12,6 +12,7 @@
   <p align="center">
     Pizza ordering website
     <br />
+    <br />
     <a href="https://dangor220.github.io/react-pizza/">View Demo</a>
   </p>
 </div>
@@ -66,7 +67,7 @@ The main technologies used in the implementation of the project.
 - [![TypeScript][TypeScript.js]][TypeScript-url]
 - [![ReactRouterV6.28][ReactRouterV6.28.js]][ReactRouterV6.28-url]
 - [![Axios][Axios.js]][Axios-url]
-- [![SCSS][SCSS]][SCSS-url]
+- [![SCSS][SCSS.js]][SCSS-url]
 - [![CSS-Modules][CSS-Modules.js]][CSS-Modules-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -118,7 +119,7 @@ Project Link: [https://github.com/dangor220/react-pizza](https://github.com/dang
 [ReactRouterV6.28-url]: https://reactrouter.com/en/main
 [Axios.js]: https://img.shields.io/badge/axios-20242A?style=for-the-badge&logo=axios
 [Axios-url]: https://axios-http.com/docs/intro
-[SCSS.js]: https://img.shields.io/badge/sass-20242A?style=for-the-badge&logo=sass
+[SCSS.js]: https://img.shields.io/badge/scss-20242A?style=for-the-badge&logo=sass
 [SCSS-url]: https://sass-lang.com/
 [CSS-Modules.js]: https://img.shields.io/badge/cssmodules-20242A?style=for-the-badge&logo=cssmodules
 [CSS-Modules-url]: https://create-react-app.dev/docs/adding-a-css-modules-stylesheet/
