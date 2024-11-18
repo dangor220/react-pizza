@@ -9,6 +9,7 @@ import App from './App.tsx';
 import Home from './pages/Home';
 
 const Cart = lazy(() => import(/* webpackChunkName: 'Cart' */ './pages/Cart'));
+const Order = lazy(() => import(/* webpackChunkName: 'Order' */ './pages/Order'));
 const PizzaCard = lazy(() => import(/* webpackChunkName: 'PizzaCard' */ './components/PizzaCard'));
 const ErrorPage = lazy(() => import(/* webpackChunkName: 'ErrorPage' */ './pages/Error'));
 
@@ -31,6 +32,14 @@ const router = createHashRouter([
         element: (
           <Suspense fallback={<div>Идет загрузка...</div>}>
             <Cart />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'order',
+        element: (
+          <Suspense fallback={<div>Идет загрузка...</div>}>
+            <Order />
           </Suspense>
         ),
       },

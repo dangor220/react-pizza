@@ -3,9 +3,10 @@ import Search from './Search';
 import { useDispatch, useSelector } from 'react-redux';
 import { setActiveCategory, setSelectedPage } from '../redux/slices/filter/slice';
 import pizzaLogo from '../assets/images/icons/pizza.svg';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export default function Header() {
+  const [visibleHeader, setVisibleHeader] = useState(true);
   const dispatch = useDispatch();
   const isMounted = useRef(false);
   const { totalPrice, items } = useSelector(
@@ -20,6 +21,12 @@ export default function Header() {
   );
 
   const { pathname } = useLocation();
+
+  useEffect(() => {
+    pathname === '/cart' || pathname === '/order'
+      ? setVisibleHeader(false)
+      : setVisibleHeader(true);
+  }, [pathname]);
 
   useEffect(() => {
     if (isMounted.current) {
@@ -46,11 +53,12 @@ export default function Header() {
               </div>
             </div>
           </Link>
-          {pathname !== '/cart' && <Search />}
+
+          {visibleHeader && <Search />}
         </div>
 
         <div className="header__cart">
-          {pathname !== '/cart' && (
+          {visibleHeader && (
             <Link to="/cart" className="button button--cart">
               <span>{totalPrice} ₽</span>
               <div className="button__delimiter"></div>

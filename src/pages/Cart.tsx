@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { addItem, clearItems, removeItem, removeItemById } from '../redux/slices/cart/slice';
 
@@ -184,9 +185,9 @@ const Cart = (): React.ReactNode => {
           </div>
           <div className="cart__bottom-buttons">
             <BackButton />
-            <div className="button pay-btn">
-              <span>Оплатить сейчас</span>
-            </div>
+            <Link to={'/order'} className="button pay-btn">
+              <span>Оформить заказ</span>
+            </Link>
           </div>
         </div>
       </div>
