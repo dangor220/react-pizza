@@ -7,7 +7,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { CartEmpty } from '../components/CartEmpty';
 import { BackButton } from '../components/BackButton';
 
-type CartItem = {
+export type CartItem = {
   id: number;
   imageUrl: string;
   title: string;
@@ -16,7 +16,7 @@ type CartItem = {
   count: number;
   price: number;
 };
-type CartState = {
+export type CartState = {
   cart: {
     totalPrice: number;
     totalCount: number;
