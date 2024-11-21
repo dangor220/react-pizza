@@ -12,7 +12,7 @@ export default function Search() {
 
   const dispatch = useDispatch();
 
-  let handleInputDebounce = useCallback(debounce(setSearchValue, 500), []);
+  let handleInputDebounce = useCallback(debounce(setSearchValue, 500, { dispatch }), []);
 
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setValue(event.target.value);

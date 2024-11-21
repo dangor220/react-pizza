@@ -4,6 +4,7 @@ import { useForm, ValidationError } from '@formspree/react';
 import { useSelector } from 'react-redux';
 import { CartItem, CartState } from './Cart';
 import SuggestAddr from '../components/SuggestAddr';
+import OrderConfirmed from '../components/OrderConfirmed';
 
 type CartItems = {
   [id: number]: CartItem[];
@@ -41,7 +42,7 @@ export default function Order(): React.ReactNode {
   });
 
   if (state.succeeded) {
-    return <p>Thanks for joining!</p>;
+    return <OrderConfirmed />;
   }
 
   const handleChange = (
