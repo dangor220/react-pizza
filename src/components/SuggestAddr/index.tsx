@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import styles from './SuggestAddr.module.scss';
+import debounce from '../../utils/debounce';
 
 export default function SuggestAddr(): React.ReactNode {
   const [address, setAddress] = useState('');
@@ -23,7 +24,7 @@ export default function SuggestAddr(): React.ReactNode {
       return;
     }
 
-    getAddressData();
+    getDebounceAddrData();
   }, [address]);
 
   const getAddressData = async () => {
@@ -43,6 +44,8 @@ export default function SuggestAddr(): React.ReactNode {
       setSuggest([]);
     }
   };
+
+  const getDebounceAddrData = debounce(getAddressData, 1500);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setAddress(event.target.value);

@@ -4,29 +4,13 @@ import { useDispatch } from 'react-redux';
 import { clearSearchValue, setSearchValue } from '../../redux/slices/filter/slice';
 
 import styles from './Search.module.scss';
+import debounce from '../../utils/debounce';
 
 export default function Search() {
   const [value, setValue] = useState('');
   const searchInput = useRef<HTMLInputElement>(null);
 
   const dispatch = useDispatch();
-
-  type DebouncedFunction<T extends (...args: any[]) => any> = (
-    this: ThisParameterType<T>,
-    ...args: Parameters<T>
-  ) => void;
-
-  const debounce = <T extends (...args: any[]) => any>(
-    func: T,
-    ms: number,
-  ): DebouncedFunction<T> => {
-    let timerID: number;
-    return function (this: ThisParameterType<T>, ...args: Parameters<T>): void {
-      clearTimeout(timerID);
-
-      timerID = setTimeout(() => dispatch(func.apply(this, args)), ms);
-    };
-  };
 
   let handleInputDebounce = useCallback(debounce(setSearchValue, 500), []);
 
