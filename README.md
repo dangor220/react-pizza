@@ -91,6 +91,7 @@ The main technologies used in the implementation of the project.
 - [x] Add to cart
 - [x] Saving to LocalStorage
 - [x] Working with the search bar
+- [x] Order implementation
 - [ ] Payment implementation
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
