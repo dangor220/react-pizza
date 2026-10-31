@@ -3,11 +3,11 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/dangor220/pizzario">
+  <a href="https://github.com/dangor220/react-pizza">
     <img src="src/assets/images/icons/pizza.svg" alt="Logo" width="80" height="80">
   </a>
 
-  <h3 align="center">Pizzario</h3>
+  <h3 align="center">React Pizza</h3>
 
   <p align="center">
     Pizza ordering website
@@ -41,7 +41,7 @@
 
 [![Product Name Screen Shot][product-screenshot]](https://dangor220.github.io/react-pizza/)
 
-This website, Pizzario, is an online service for ordering pizzas. It features a modern, minimalist design with a user-friendly interface. On the main page, users can browse a catalog of various pizzas with filters by category (e.g., meat, vegetarian, spicy, etc.). There is also an option to sort by popularity.
+This website, React Pizza, is an online service for ordering pizzas. It features a modern, minimalist design with a user-friendly interface. On the main page, users can browse a catalog of various pizzas with filters by category (e.g., meat, vegetarian, spicy, etc.). There is also an option to sort by popularity.
 
 Key Features:
 
@@ -102,7 +102,7 @@ The main technologies used in the implementation of the project.
 
 Gordeev Danil Alexandrovich - [@dangor220](https://t.me/dangor220)
 
-Project Link: [https://github.com/dangor220/react-pizza](https://github.com/dangor220/pizzario)
+Project Link: [https://github.com/dangor220/react-pizza](https://github.com/dangor220/react-pizza)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
